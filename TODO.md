@@ -2,6 +2,10 @@
 
 - [ ] **Add my proofreading (Lektorat) skills** (owner, 2026-11-16): move them into `skills/<name>/SKILL.md`, one folder per skill, in the same format as `owner-led-projects`; list each in the README's table. The owner provides them.
 
+- [ ] **Add microsoft/TokenEconomizer** (owner, 2026-11-16): https://github.com/microsoft/TokenEconomizer, Apache 2.0, Microsoft Research and UC Berkeley (arXiv 2610.22732), very active (last commit 2026-11-15, `583fff7`). A Claude Code plugin with hooks, not a skill folder, so `install.sh` cannot copy it: it belongs in this repository's marketplace (next item) as a third-party plugin pinned to a reviewed commit (its own marketplace lists the plugin at `./plugin`, so a `git-subdir` source with `path: plugin` and `sha`). Before pinning, read its hooks and scripts like any code that runs on every session.
+  - Where it helps: it learns across sessions in `~/.tokeneconomizer`, so on the owner's own computer; cloud sessions lose that folder, and cloud sessions do not install plugins from settings anyway.
+  - Setting to decide: the owner puts quality before cost (the most capable model orchestrates, even when slower). Tool pruning and the loop guard change what the agent does mid-session, and the loop guard's judge costs model calls; the micro-skills only add facts learned from repeated evidence. Claude's suggestion: micro-skills on, tool pruning and the loop guard off to start.
+
 - [ ] **Load it as a plugin, like addyosmani/agent-skills** (owner, 2026-11-16): agent-skills can be installed with
   `/plugin marketplace add addyosmani/agent-skills` and `/plugin install agent-skills@addy-agent-skills`,
   through `.claude-plugin/plugin.json` (name, version, licence, `"skills": "./skills"`) and
