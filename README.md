@@ -18,3 +18,7 @@ bash ~/src/claude-skills/install.sh
 ```
 
 In a Claude Code cloud environment, put the same two lines into the environment's setup script, with a temporary folder instead of `~/src`.
+
+## Licence
+
+MIT (owner, 2026-11-16), see `LICENSE`. The agent-skills that `install.sh` fetches are MIT as well (Addy Osmani); their licence is installed next to them as `agent-skills-LICENSE`.
