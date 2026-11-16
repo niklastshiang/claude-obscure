@@ -8,6 +8,13 @@ that only some projects need.
 
 Separate sections with `---`. Keep each one short and link to `docs/` for depth.
 
+0. **The first thing a reader sees** (owner, 2026-11-16, after GymMane's README):
+   - **An app:** an animated overview of the real app at the very top (open a file, the work
+     running, the result; a GIF of a few seconds, recorded by a script that drives the app, so
+     it can be made again after UI changes), the app icon under it, then title and tagline.
+     Single screenshots with a one-line caption go further down (item 4).
+   - **A command-line-only project:** an ASCII-art banner of the name in a `<pre>` block instead
+     of the overview and the icon.
 1. **Title and one-line tagline** (centred): what it is, in one sentence a stranger understands.
 2. **Fact badges** (one row): licence (linked), supported runtime versions, test coverage,
    version, and at most one distinctive fact. Rendered by a script and committed as SVGs, so the
