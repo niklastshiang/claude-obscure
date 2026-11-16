@@ -24,6 +24,7 @@ It does not repeat the general skills it builds on. Where a step is covered ther
 | ADRs, docs that drift | `documentation-and-adrs` |
 | Commits, changelog, tags | `git-workflow-and-versioning` |
 | Fresh-context review | `doubt-driven-development`, `code-review-and-quality` |
+| Texts that read like their author | `clarity` (addyosmani/clarity) |
 
 **Precedence.** The project's own `CLAUDE.md`, `CONSTRAINTS.md` and ADRs win over everything here. This skill overrides the agent-skills only where listed under *Overrides*; their safety and quality floors (e.g. `security-and-hardening`, `constraint-driven-development`) stay in force.
 
@@ -129,6 +130,16 @@ Owner's rule: **the most capable model available orchestrates** (as of 2026-11: 
 - **Generate the facts the README shows** (test count, coverage, version, AI cost) with a script and commit the output, so the README does not depend on an outside service and the numbers are refreshed as a release step.
 - If the owner chose to publish how it was made (Day 1, item 6): who wrote the code, who decided, which guardrails held, and what the AI cost (tokens, money at API prices), refreshed every release.
 
+## Writing
+
+Every text a person reads goes through the `clarity` skill (owner, 2026-11-16): READMEs, docs,
+specs, release notes, commit messages, comments on GitHub, and the replies to the owner in chat,
+in whatever language the owner uses. Write it, then review it once with clarity's checks before
+it leaves: say what happens instead of how important it is, keep facts and attribution exactly
+as they are, cut formula (balanced threes, "not X but Y", bold labels before every line, recaps
+at the end), and stop on the last useful thought.
+*Why: the owner asked for texts that do not read like AI.*
+
 ## README
 
 This replaces the README structure in `documentation-and-adrs` for these projects. Start from `README-template.md` in this skill. Then, **before writing or improving a README, look at the READMEs of successful comparable projects** (popular, actively maintained, same kind of software and audience): what they lead with, how quickly a reader gets to "what is it, does it fit me, how do I install it", how they show the product (screenshots, a short demo), what they leave out. Adopt what works, name the projects you learned from, and propose the changes to the owner rather than restyling silently (owner, 2026-11-16).
@@ -180,3 +191,4 @@ Keep decoration modest: a few badges that state facts are enough.
 - [ ] Every subagent result that was used was spot-checked
 - [ ] The release checklist lists the current key features, and they were tried
 - [ ] README figures were regenerated, and the README was compared with successful projects of its kind
+- [ ] Every text for readers went through `clarity` once before it left

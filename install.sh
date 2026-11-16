@@ -21,6 +21,23 @@ else
 fi
 rm -rf "$tmp"
 
+# clarity (addyosmani/clarity, MIT): writing that reads like its author, pinned to a reviewed
+# commit; only the skill, its references and its two diagnostic scripts (stdlib only).
+CLARITY_SHA=e27ceeff60368cf6966b4ea00a5b9b36418ee9a0
+tmp=$(mktemp -d)
+if git -C "$tmp" init -q \
+  && git -C "$tmp" fetch -q --depth 1 https://github.com/addyosmani/clarity.git "$CLARITY_SHA" \
+  && git -C "$tmp" checkout -q FETCH_HEAD; then
+  mkdir -p "$DEST/clarity/scripts"
+  cp "$tmp/SKILL.md" "$tmp/LICENSE" "$DEST/clarity/"
+  cp -r "$tmp/references" "$DEST/clarity/"
+  cp "$tmp/scripts/strip_markdown.py" "$tmp/scripts/prose_stats.py" "$DEST/clarity/scripts/"
+  echo "clarity: installed ($CLARITY_SHA)" >&2
+else
+  echo "clarity: download failed, skipping" >&2
+fi
+rm -rf "$tmp"
+
 # Own skills last: where a name collides, ours wins.
 cp -r "$HERE"/skills/* "$DEST/"
 echo "own skills: installed ($(ls "$HERE/skills" | tr '\n' ' '))" >&2

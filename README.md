@@ -6,7 +6,7 @@ My skills for Claude Code, plus an installer that loads them together with the s
 |---|---|
 | [`owner-led-projects`](skills/owner-led-projects/SKILL.md) | Working rules for a programming project that Claude builds while I make the decisions: what to settle on day 1, what "done" means, how decisions are recorded, how subagents are orchestrated, releases, and a README template. Learned from building [Stickler](https://github.com/niklastshiang/stickler). |
 
-They build on [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (MIT), which `install.sh` fetches at a pinned, reviewed commit. To move to a newer commit, review its changes first, then update `AGENT_SKILLS_SHA`.
+They build on [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) and [addyosmani/clarity](https://github.com/addyosmani/clarity) (both MIT), which `install.sh` fetches at pinned, reviewed commits. To move to a newer commit, review its changes first, then update `AGENT_SKILLS_SHA` or `CLARITY_SHA`.
 
 ## Install
 
