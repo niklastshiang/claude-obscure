@@ -43,8 +43,8 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] Task 8: `house-rules` without its own Day 1 list
 
 ### Checkpoint B: The run
-- [ ] `scripts/check.sh` green
-- [ ] Owner reads `principles.md` and `skills/lets-a-go/SKILL.md`
+- [x] `scripts/check.sh` green
+- [x] Owner reads `principles.md` and `skills/lets-a-go/SKILL.md`
 
 ### Phase 3: Proof
 - [ ] Task 9: Dry run GTK/Python
