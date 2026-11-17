@@ -1,0 +1,39 @@
+# The checks from CONSTRAINTS.md on every push and every pull request.
+# Actions are pinned to full commit shas, with the version in a comment.
+name: check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: {{CI_RUNNER}}
+    steps:
+      - uses: actions/checkout@{{CHECKOUT_SHA}} # {{CHECKOUT_VERSION}}
+        with:
+          fetch-depth: 0 # the floor guard compares against the state before the push
+{{CI_SETUP_STEPS}}
+      - name: Lint, format, floor guard, tests with coverage
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: scripts/check.sh full
+
+  secrets:
+    runs-on: {{CI_RUNNER}}
+    steps:
+      - uses: actions/checkout@{{CHECKOUT_SHA}} # {{CHECKOUT_VERSION}}
+        with:
+          fetch-depth: 0 # scan the whole history
+      - name: gitleaks (whole history, values redacted)
+        env:
+          VERSION: {{GITLEAKS_VERSION}}
+        run: |
+          base="https://github.com/gitleaks/gitleaks/releases/download/v$VERSION"
+          curl -sSfLO "$base/gitleaks_${VERSION}_linux_x64.tar.gz"
+          curl -sSfL "$base/gitleaks_${VERSION}_checksums.txt" | grep linux_x64.tar.gz | sha256sum -c -
+          tar xzf "gitleaks_${VERSION}_linux_x64.tar.gz" gitleaks
+          ./gitleaks git . --redact --no-banner

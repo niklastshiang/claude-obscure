@@ -5,7 +5,8 @@
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-shellcheck install.sh scripts/check.sh .githooks/pre-commit
+shellcheck install.sh scripts/check.sh .githooks/pre-commit \
+  skills/lets-a-go/templates/scripts/check.sh skills/lets-a-go/templates/.githooks/pre-commit
 python3 -I scripts/check_repo.py
 
 claude_cli=${CLAUDE_CLI:-claude}

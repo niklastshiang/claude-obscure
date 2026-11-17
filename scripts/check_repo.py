@@ -3,6 +3,7 @@
 - the pinned commits in install.sh and .claude-plugin/marketplace.json are full SHAs and agree
 - every skill under skills/ has front matter whose name matches its folder, and a description
 - every skill is listed in the README's table
+- every core template of lets-a-go exists
 - every row of skills/lets-a-go/principles.md has a topic, a rule and a "Decided" entry
 """
 import json
@@ -42,6 +43,12 @@ for skill in sorted((ROOT / "skills").iterdir()):
         errors.append(f"{skill.name}: front matter has no description")
     if f"`{skill.name}`" not in readme:
         errors.append(f"{skill.name}: not listed in README.md")
+
+TEMPLATES = ["CLAUDE.md", "CONSTRAINTS.md", "scripts/check.sh", ".githooks/pre-commit",
+             ".github/workflows/check.yml", "docs/adr/0000-template.md"]
+for t in TEMPLATES:
+    if not (ROOT / "skills/lets-a-go/templates" / t).is_file():
+        errors.append(f"lets-a-go: template {t} is missing")
 
 principles = ROOT / "skills/lets-a-go/principles.md"
 rows = 0
