@@ -49,10 +49,10 @@ Cloud install:           bash install.sh
 ## Project Structure
 
 ```
-principles.md                            the owner's principles (public)
 skills/house-rules/SKILL.md              renamed from owner-led-projects; Day 1 list replaced by a pointer to lets-a-go
 skills/house-rules/README-template.md    unchanged; lets-a-go reads it from here
-skills/lets-a-go/SKILL.md              the run, the stack recipe, adopt mode
+skills/lets-a-go/SKILL.md                the run, the stack recipe, adopt mode
+skills/lets-a-go/principles.md           the owner's principles (public)
 skills/lets-a-go/templates/            core files, copied and filled per project
   CLAUDE.md
   CONSTRAINTS.md
@@ -128,6 +128,7 @@ The skill is prose, so most of its testing is running it.
 - **Placeholders** are filled by Claude, checked by "no `{{` left".
 - **The Day 1 list** moves from `house-rules` (formerly `owner-led-projects`) into `lets-a-go`, which gains an adopt mode for existing projects.
 - **The project folder** is created in the current directory; inside a git repository, ask first.
+- **`principles.md`** lives in `skills/lets-a-go/`, next to the skill, so `install.sh` copies it for cloud sessions (owner, 2026-11-17; the spec first put it at the repository root).
 - **The floor guard** is ported per project from the agent-skills reference, not vendored here.
 - **AI disclosure:** a principle in `principles.md`: every project publishes how it was made (who wrote the code, who decided, which guardrails held, what the AI cost).
 

@@ -70,7 +70,7 @@ Plan: `tasks/plan.md`. Spec: `SPEC-lets-a-go.md`. Every task ends with `scripts/
 
 ## Task 3: `principles.md` and its check
 
-**Description:** Write `principles.md` at the repository root: one row per principle (topic, rule, decided by and when), each with its *Why* where `house-rules` has one. Content: languages (files and commits English, chat in the owner's language), runtime versions (newest stable that every core dependency supports, checked on the web with sources, rechecked before each release, updated in its own commit), release numbering (1, 2, 3 …), AI disclosure (publish how it was made), hosting default (GitHub, public), quality bar as `CONSTRAINTS.md` with floor guard, hook and CI from the first commit, check tiers with time budgets, secrets rules, facts about outside projects from the web, hook enabled in every clone, texts for readers through `clarity`. Extend `check_repo.py`: the file exists and no row has an empty rule or decision.
+**Description:** Write `skills/lets-a-go/principles.md`: one row per principle (topic, rule, decided by and when), each with its *Why* where `house-rules` has one. Content: languages (files and commits English, chat in the owner's language), runtime versions (newest stable that every core dependency supports, checked on the web with sources, rechecked before each release, updated in its own commit), release numbering (1, 2, 3 …), AI disclosure (publish how it was made), hosting default (GitHub, public), quality bar as `CONSTRAINTS.md` with floor guard, hook and CI from the first commit, check tiers with time budgets, secrets rules, facts about outside projects from the web, hook enabled in every clone, texts for readers through `clarity`. Extend `check_repo.py`: the file exists and no row has an empty rule or decision.
 
 **Acceptance criteria:**
 - [ ] Every row has a rule and a "Decided" entry; licence is not a row (owner, 2026-11-17)
@@ -82,7 +82,7 @@ Plan: `tasks/plan.md`. Spec: `SPEC-lets-a-go.md`. Every task ends with `scripts/
 
 **Dependencies:** Task 1
 
-**Files likely touched:** `principles.md`, `scripts/check_repo.py`
+**Files likely touched:** `skills/lets-a-go/principles.md`, `scripts/check_repo.py`
 
 **Estimated scope:** S
 

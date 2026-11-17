@@ -3,6 +3,7 @@
 - the pinned commits in install.sh and .claude-plugin/marketplace.json are full SHAs and agree
 - every skill under skills/ has front matter whose name matches its folder, and a description
 - every skill is listed in the README's table
+- every row of skills/lets-a-go/principles.md has a topic, a rule and a "Decided" entry
 """
 import json
 import pathlib
@@ -42,8 +43,24 @@ for skill in sorted((ROOT / "skills").iterdir()):
     if f"`{skill.name}`" not in readme:
         errors.append(f"{skill.name}: not listed in README.md")
 
+principles = ROOT / "skills/lets-a-go/principles.md"
+rows = 0
+if not principles.is_file():
+    errors.append("skills/lets-a-go/principles.md is missing")
+else:
+    for n, line in enumerate(principles.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.startswith("|") or line.startswith("|---") or line.startswith("| Topic |"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        rows += 1
+        if len(cells) != 3 or not all(cells):
+            errors.append(f"principles.md:{n}: a row needs a topic, a rule and a Decided entry")
+    if not rows:
+        errors.append("principles.md: no rows")
+
 for e in errors:
     print(e, file=sys.stderr)
 print(f"check_repo: {len(pins)} pins, {len(list((ROOT / 'skills').iterdir()))} skills, "
+      f"{rows} principles, "
       f"{len(errors)} errors", file=sys.stderr)
 sys.exit(1 if errors else 0)

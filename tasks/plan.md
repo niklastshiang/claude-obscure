@@ -23,11 +23,11 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 ## Task List
 
 ### Phase 0: Clean base
-- [ ] Task 0: Commit the uncommitted marketplace work (owner confirms)
+- [x] Task 0: Commit the uncommitted marketplace work (owner confirms)
 
 ### Phase 1: Names
-- [ ] Task 1: Rename plugin `owner-led-projects` → `kickoff`, skill → `house-rules`, reinstall
-- [ ] Task 2: Skill `lets-a-go`, first slice: where the project goes (new folder or adopt mode)
+- [x] Task 1: Rename plugin `owner-led-projects` → `kickoff`, skill → `house-rules`, reinstall
+- [x] Task 2: Skill `lets-a-go`, first slice: where the project goes (new folder or adopt mode)
 
 ### Checkpoint A: Names
 - [ ] `scripts/check.sh` green
