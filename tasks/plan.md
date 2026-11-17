@@ -40,7 +40,7 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] Task 5: Core templates, part 1: `CLAUDE.md`, `CONSTRAINTS.md`
 - [x] Task 6: Core templates, part 2: `check.sh`, hook, CI; template check
 - [x] Task 7: `lets-a-go` writes the scaffold and closes the run (recipe, final checks)
-- [ ] Task 8: `house-rules` without its own Day 1 list
+- [x] Task 8: `house-rules` without its own Day 1 list
 
 ### Checkpoint B: The run
 - [ ] `scripts/check.sh` green

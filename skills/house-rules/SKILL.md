@@ -9,7 +9,7 @@ description: Working rules for a programming project that Claude builds while a 
 
 In these projects Claude writes all the code and the owner makes all the decisions. That split works, but it has its own failure modes: conventions decided late and then changed at great cost, work declared done that breaks the first time the owner opens the real program, decisions made silently by the agent, checks weakened to get green, and documents that drift from the code.
 
-This skill collects what one such project taught (Stickler, 2026-11: a command-line benchmark that grew into a packaged desktop app over six releases): what to fix on day 1, what "done" means, how to involve the owner, how to orchestrate subagents, and how to release and present the result. Rules that come from a concrete mistake or success carry a one-line *Why*, so the owner can see where they come from.
+This skill collects what one such project taught (Stickler, 2026-11: a command-line benchmark that grew into a packaged desktop app over six releases): what "done" means, how to involve the owner, how to orchestrate subagents, and how to release and present the result. Rules that come from a concrete mistake or success carry a one-line *Why*, so the owner can see where they come from.
 
 It does not repeat the general skills it builds on. Where a step is covered there, it names the skill:
 
@@ -30,7 +30,7 @@ It does not repeat the general skills it builds on. Where a step is covered ther
 
 ## When to Use
 
-- A new repository or project starts (run *Day 1* before the first line of product code)
+- A new repository or project starts (see *Day 1*: `/kickoff:lets-a-go`)
 - Setting up checks, hooks, CI or project conventions
 - Deciding whether a task, a module or a release is done
 - A choice comes up and it is unclear whether it is the owner's
@@ -40,30 +40,12 @@ It does not repeat the general skills it builds on. Where a step is covered ther
 
 **When NOT to use:** a one-off script or a throwaway experiment with no owner decisions and no release.
 
-## Day 1: Fix the Conventions Before the Code
+## Day 1
 
-Ask the owner in the first session, one question at a time (`interview-me`), write the answers into `CLAUDE.md` or an ADR, and do not reopen them casually. Each of the first three changed mid-project in Stickler, and each change cost rework.
+Every project starts with `/kickoff:lets-a-go`: it shows the owner's principles (`lets-a-go/principles.md`) without asking them again, prepares the project decisions one at a time, records each as an ADR, and builds the scaffold with its checks.
 
-1. **Language** of code, comments, docs and commit messages, and the language Claude uses with the owner (they may differ).
-   *Why: Stickler switched everything to English on day 2; translating the code changed cache keys, so 445 results had to be rekeyed, and some file names stayed in the old language.*
-2. **Licence** of the code, and how third-party licences (libraries, models, data, assets) relate to it.
-   *Why: "MIT stays" was decided on day 3 and replaced by GPL on day 5; the licence file, package metadata, citation file, About dialog, README and contribution guide all had to change.*
-3. **Runtime version range** (language version, main dependencies) for every part of the system.
-   *Why: three moves of the Python version, each with lock updates, recomputed results, and a follow-up fix where one environment still took the old version.*
-4. **Release numbering and release steps** (see *Release*).
-5. **Where it will be hosted and shipped, and those platforms' rules on AI-generated code.**
-   *Why: one forge was ruled out because it mostly disallows AI-generated programs; an app store requires the manifest and the submission to be written by a human, which the owner must then do themselves.*
-6. **Whether to publish how it was made** (AI authorship, guardrails, AI cost). Stickler did; it is the owner's choice.
-7. **The quality bar as a file** (`CONSTRAINTS.md`, see `constraint-driven-development`), enforced from the first commit by a pre-commit hook and CI (`ci-cd-and-automation`), plus a guard that inspects the diff for weakened checks (new suppressions, skips, stubs, lowered thresholds, secret patterns).
-   *Why: the bar was raised over time (coverage 80 → 95) and never lowered; the guard and the hook kept every commit honest.*
-8. **Check tiers with time budgets**, as in `constraint-driven-development`: fast after every edit (seconds), task before every commit (a minute or two, also the pre-commit hook), full in CI. Write the commands into `CLAUDE.md`.
-9. **Secrets rules**: which files hold secrets; never `cat`, `source` or print them, never print raw API responses, never put a secret into a subagent's brief; check them only by metadata or a silent pattern match; scan the whole history before the repository goes public.
-   *Why: a cloud GPU provider's pod response contains the pod's login password; printing it once would have put it in the transcript.*
-10. **Facts about outside projects come from the web, not from memory**: maintenance status, licence, current version.
-    *Why: a dependency's original repository was archived; the maintained fork was only found by checking.*
-
-**Enable the hook in every clone** (e.g. `git config core.hooksPath <dir>`; it is per clone), and never chain a commit after a check in a way that ignores its result.
-*Why: in a fresh cloud clone without the hook, a commit went through while seven tests were red.*
+**A project without Day 1 decisions** in its `CLAUDE.md` or `docs/adr/` (an old repository, or one started without the command): suggest `/kickoff:lets-a-go` before the first line of product code. In a folder that already holds a project it runs in adopt mode, asks only what is missing and changes no existing file.
+*Why: in Stickler the language, the licence and the Python version each changed mid-project, and each change cost rework.*
 
 ## Decisions Belong to the Owner
 
@@ -124,11 +106,11 @@ Owner's rule: **the most capable model available orchestrates** (as of 2026-11: 
 
 ## Release
 
-- **Version numbers per the Day 1 decision.** If the owner chose plain integers (+1 per release, every release counts, fixes included; Stickler, ADR 0006), the SemVer bump rules of `git-workflow-and-versioning` and its "breaking → major" check do not apply; its commit, changelog and tagging practices still do. A CI step should fail if the tag and the version in the code differ.
+- **Version numbers per the principle** *Release numbering* (plain integers, +1 per release, every release counts, fixes included; Stickler, ADR 0006): the SemVer bump rules of `git-workflow-and-versioning` and its "breaking → major" check do not apply; its commit, changelog and tagging practices still do. A CI step should fail if the tag and the version in the code differ.
 - **Keep a written release checklist that grows with the product.** It holds the few mechanical steps (security alerts, version bump, release commit, tag, attached artefacts, metadata, docs check, regenerated README figures) and, above all, **the most important features to try by hand** before the tag. It does not need to be numbered; it needs to be current. When a release adds a feature that matters, add a line.
   *Why: the owner's hand checks at each checkpoint found what tests did not; the list makes that repeatable at every release.*
 - **Generate the facts the README shows** (test count, coverage, version, AI cost) with a script and commit the output, so the README does not depend on an outside service and the numbers are refreshed as a release step.
-- If the owner chose to publish how it was made (Day 1, item 6): who wrote the code, who decided, which guardrails held, and what the AI cost (tokens, money at API prices), refreshed every release.
+- Publish how it was made (principle *How it was made*): who wrote the code, who decided, which guardrails held, and what the AI cost (tokens, money at API prices), refreshed every release.
 
 ## Writing
 
@@ -146,7 +128,7 @@ Keep decoration modest: a few badges that state facts are enough.
 
 | Upstream | Here |
 |---|---|
-| `git-workflow-and-versioning`: SemVer | The Day 1 numbering decision; SemVer bump rules only if the owner chose SemVer |
+| `git-workflow-and-versioning`: SemVer | The principle *Release numbering*; SemVer bump rules only where a project's ADR chose SemVer |
 | Definition of done (`planning-and-task-breakdown`): runtime check and human approval on every change | Pure logic is done with green tests; real-program checks for what meets the real environment, batched at module checkpoints |
 | `documentation-and-adrs`: README structure | `README-template.md` plus comparison with successful projects |
 
@@ -178,7 +160,7 @@ Keep decoration modest: a few badges that state facts are enough.
 
 ## Verification
 
-- [ ] Day 1 decisions are recorded (language, licence, versions, release scheme, hosting rules, publishing how it was made, quality bar, check tiers, secrets)
+- [ ] Day 1 decisions are recorded as ADRs, and deviations from `principles.md` too (`/kickoff:lets-a-go`)
 - [ ] The pre-commit hook is active in this clone and CI runs the same checks
 - [ ] Every user-visible choice since the last release was offered as options with a recommendation, and is recorded with its date
 - [ ] Every finished task has a measured done note and a ticked box

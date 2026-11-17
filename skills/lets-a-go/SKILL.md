@@ -53,7 +53,9 @@ The decisions:
 2. **Stack:** language, UI toolkit, build tool. Prefer what is actively maintained and fits the platforms from 1.
 3. **Versions:** for each component, the newest stable release that every core dependency supports (principle *Runtime versions*). Name the release date and where support was confirmed.
 4. **Licence** of the project, checked against the licences of the core dependencies and any assets, data or models it ships.
-5. **Repository and stores:** public or private on GitHub; whether GitHub and each store from 1 accept AI-generated code, and who must submit what (some stores require the owner to write the listing or the manifest).
+   *Why: in Stickler, "MIT stays" was decided on day 3 and replaced by GPL on day 5; the licence file, package metadata, citation file, About dialog, README and contribution guide all had to change.*
+5. **Repository and stores:** public or private on GitHub; whether GitHub and each store from 1 accept AI-generated code, and who must submit what.
+   *Why: for Stickler one forge was ruled out because it mostly disallows AI-generated programs, and an app store requires the manifest and the submission to be written by a human, which the owner must then do themselves.*
 6. Anything the stack recipe (step 4) marks as a decision for this stack.
 
 Adopt mode: skip every decision the project already records in `CLAUDE.md` or `docs/adr/`, and say which ones were found.
