@@ -1,6 +1,6 @@
 # claude-skills: project rules
 
-This repository follows its own skill, `skills/owner-led-projects/SKILL.md`. The Day 1 decisions
+This repository follows its own skill, `skills/house-rules/SKILL.md` (plugin `kickoff`). The Day 1 decisions
 for this repository:
 
 - Language: files, comments and commit messages in English; Claude talks with the owner in

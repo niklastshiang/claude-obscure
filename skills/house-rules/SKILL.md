@@ -1,9 +1,9 @@
 ---
-name: owner-led-projects
+name: house-rules
 description: Working rules for a programming project that Claude builds while a human owner makes every decision. Use when starting a new project or repository, before the first line of product code, when setting up checks, conventions and docs, when unsure whether to decide something or ask the owner, when asking "is this done?", when planning to delegate work to subagents, when preparing a release, and when writing or improving a README. Builds on the agent-skills collection and states where it overrides it.
 ---
 
-# Owner-Led Projects
+# House Rules
 
 ## Overview
 

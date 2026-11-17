@@ -5,7 +5,7 @@
   "owner": { "name": "Niklas Tshiang Tshiananga", "url": "https://github.com/niklastshiang" },
   "plugins": [
     {
-      "name": "owner-led-projects",
+      "name": "kickoff",
       "source": "./",
       "description": "Working rules for a programming project that Claude builds while a human owner makes every decision.",
       "category": "workflow"

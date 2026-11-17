@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "owner-led-projects",
+  "name": "kickoff",
   "description": "Working rules for a programming project that Claude builds while a human owner makes every decision.",
   "author": { "name": "Niklas Tshiang Tshiananga", "url": "https://github.com/niklastshiang" },
   "repository": "https://github.com/niklastshiang/claude-skills",

@@ -4,8 +4,8 @@ My skills for Claude Code, as a plugin marketplace that also carries the third-p
 
 | Plugin | What it is for |
 |---|---|
-| [`owner-led-projects`](skills/owner-led-projects/SKILL.md) | Working rules for a programming project that Claude builds while I make the decisions: what to settle on day 1, what "done" means, how decisions are recorded, how subagents are orchestrated, releases, and a README template. Learned from building [Stickler](https://github.com/niklastshiang/stickler). Installing it also installs the next two. |
-| `agent-skills` | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (MIT): engineering skills from spec to ship. `owner-led-projects` builds on them. |
+| `kickoff` | [`house-rules`](skills/house-rules/SKILL.md): working rules for a programming project that Claude builds while I make the decisions: what to settle on day 1, what "done" means, how decisions are recorded, how subagents are orchestrated, releases, and a README template. Learned from building [Stickler](https://github.com/niklastshiang/stickler). Installing it also installs the next two. |
+| `agent-skills` | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (MIT): engineering skills from spec to ship. `kickoff` builds on them. |
 | `clarity` | [addyosmani/clarity](https://github.com/addyosmani/clarity) (MIT): prose that reads like its author. Every text for readers goes through it. |
 
 ## Install
@@ -14,7 +14,7 @@ In Claude Code 2.1.324 or later:
 
 ```bash
 claude plugin marketplace add niklastshiang/claude-skills
-claude plugin install owner-led-projects@niklastshiang
+claude plugin install kickoff@niklastshiang
 ```
 
 Inside a session the same lines start with `/plugin` instead of `claude plugin`. Start a new session afterwards; plugins load at session start.
@@ -41,7 +41,7 @@ bash /tmp/claude-skills/install.sh
 ### Remove
 
 ```bash
-for p in owner-led-projects agent-skills clarity; do claude plugin uninstall "$p@niklastshiang"; done
+for p in kickoff agent-skills clarity; do claude plugin uninstall "$p@niklastshiang"; done
 claude plugin marketplace remove niklastshiang
 ```
 
@@ -54,7 +54,7 @@ The commits are pinned in `.claude-plugin/marketplace.json` and in `install.sh`.
 ## Layout
 
 ```text
-.claude-plugin/   marketplace.json (the three plugins), plugin.json (owner-led-projects)
+.claude-plugin/   marketplace.json (the three plugins), plugin.json (kickoff)
 skills/           my skills, one folder each
 install.sh        the same skills without the plugin system, for cloud environments
 scripts/          check.sh and check_repo.py, run by the hook and CI
