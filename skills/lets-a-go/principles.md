@@ -16,6 +16,6 @@ A row marked **open** is not decided yet: `lets-a-go` asks it like a project dec
 | Secrets | Name the files that hold secrets in `CLAUDE.md`. Never `cat`, `source` or print them, never print raw API responses, never put a secret into a subagent's brief; check them only by metadata or a silent pattern match. Scan the whole history before a repository goes public. *Why: a cloud GPU provider's pod response contains the pod's login password; printing it once would have put it in the transcript.* | owner, Stickler (2026-11) |
 | Facts from the web | Facts about outside projects (maintenance status, licence, current version, platform rules) come from the web on the day they are written down, with that date, never from memory. *Why: a dependency's original repository was archived; the maintained fork was only found by checking.* | owner, Stickler (2026-11) |
 | Texts for readers | Every text a person reads goes through `clarity`: READMEs, docs, specs, release notes, commit messages, comments on GitHub, replies to the owner. | owner, 2026-11-16 |
-| Hosting | GitHub, public repository. Whether the forge and any store accept AI-generated code is still checked per project. | open |
+| Hosting | GitHub. Whether the repository is public or private is decided per project; whether GitHub and any store accept AI-generated code is checked per project. | owner, 2026-11-17 |
 
-Not principles, decided per project (owner, 2026-11-17): the licence, the stack, the concrete versions, and the rules of the chosen forge and store on AI-generated code.
+Not principles, decided per project (owner, 2026-11-17): the licence, public or private repository, the stack, the concrete versions, and the rules of the chosen forge and store on AI-generated code.

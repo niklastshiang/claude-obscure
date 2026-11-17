@@ -35,7 +35,7 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [ ] Owner reviews
 
 ### Phase 2: The run
-- [ ] Task 3: `principles.md` and its check
+- [x] Task 3: `principles.md` and its check
 - [ ] Task 4: `lets-a-go` asks principles and project decisions; ADR template
 - [ ] Task 5: Core templates, part 1: `CLAUDE.md`, `CONSTRAINTS.md`
 - [ ] Task 6: Core templates, part 2: `check.sh`, hook, CI; template check
