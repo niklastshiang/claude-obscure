@@ -4,7 +4,7 @@ My skills for Claude Code, as a plugin marketplace that also carries the third-p
 
 | Plugin | What it is for |
 |---|---|
-| `kickoff` | [`house-rules`](skills/house-rules/SKILL.md): working rules for a programming project that Claude builds while I make the decisions: what to settle on day 1, what "done" means, how decisions are recorded, how subagents are orchestrated, releases, and a README template. Learned from building [Stickler](https://github.com/niklastshiang/stickler). Installing it also installs the next two. |
+| `kickoff` | [`lets-a-go`](skills/lets-a-go/SKILL.md): starts a new project with my principles and the decisions it needs, and builds the scaffold. [`house-rules`](skills/house-rules/SKILL.md): working rules for a programming project that Claude builds while I make the decisions: what to settle on day 1, what "done" means, how decisions are recorded, how subagents are orchestrated, releases, and a README template. Learned from building [Stickler](https://github.com/niklastshiang/stickler). Installing it also installs the next two. |
 | `agent-skills` | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (MIT): engineering skills from spec to ship. `kickoff` builds on them. |
 | `clarity` | [addyosmani/clarity](https://github.com/addyosmani/clarity) (MIT): prose that reads like its author. Every text for readers goes through it. |
 
