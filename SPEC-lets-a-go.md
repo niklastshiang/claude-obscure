@@ -27,7 +27,7 @@ What it must do:
    5. Rules of the chosen forge and store on AI-generated code and on who must submit
    6. Any item the recipe marks as a decision for this stack
 4. **Scaffold.** Fill the core templates (the skill writes them; no script substitution). Then work through the stack recipe: the commands behind the three check tiers, lint/format/test configuration, the floor guard ported from the reference in `agent-skills/constraint-driven-development/references/floor-guard.md` with this language's suppression patterns, `.gitignore`, one smoke test so the task tier has something to run, and the licence text fetched from its official source.
-5. **Close.** `git init`, `git config core.hooksPath .githooks`, run the task tier, and make the first commit. Last checks: no `{{` left in any file; every decision from steps 2 and 3 has an ADR; the hook ran. Then summarise and suggest `spec-driven-development` for the product itself.
+5. **Close.** `git init`, `git config core.hooksPath .githooks`, run the task tier, and make the first commit. Last checks: no `{{UPPER_SNAKE}}` placeholder left in any file; every decision from steps 2 and 3 has an ADR; the hook ran. Then summarise and suggest `spec-driven-development` for the product itself.
 
 ## Tech Stack
 
@@ -103,7 +103,7 @@ The skill is prose, so most of its testing is running it.
 ## Success Criteria
 
 - [ ] In an empty directory, a new session lists `/kickoff:lets-a-go` with no install step
-- [ ] A dry run for a new project ends with: the dated folder, a first commit, the task tier green, the pre-commit hook active, CI workflow present, no `{{` in any file
+- [ ] A dry run for a new project ends with: the dated folder, a first commit, the task tier green, the pre-commit hook active, CI workflow present, no `{{UPPER_SNAKE}}` placeholder in any file
 - [ ] Every principle in `principles.md` is shown once and none of them is asked as a question
 - [ ] Every project decision has an ADR with options, the choice, and sources dated the day of the run
 - [ ] The GTK and the Android dry runs use the same templates and the same recipe, with no stack-specific branch in `SKILL.md`
@@ -125,7 +125,7 @@ The skill is prose, so most of its testing is running it.
 - **Licence:** a project decision every time (step 3.4), not a principle.
 - **Release numbering:** a principle in `principles.md`: plain integers 1, 2, 3 …, +1 per release, every release counts, fixes included (as Stickler ADR 0006).
 - **Names:** plugin `kickoff` (formerly `owner-led-projects`), skill `lets-a-go`, call `/kickoff:lets-a-go`, principles file `principles.md`, rules skill `house-rules` (formerly `owner-led-projects`, called as `/kickoff:house-rules`).
-- **Placeholders** are filled by Claude, checked by "no `{{` left".
+- **Placeholders** are filled by Claude, checked by "no `{{UPPER_SNAKE}}` placeholder left".
 - **The Day 1 list** moves from `house-rules` (formerly `owner-led-projects`) into `lets-a-go`, which gains an adopt mode for existing projects.
 - **The project folder** is created in the current directory; inside a git repository, ask first.
 - **`principles.md`** lives in `skills/lets-a-go/`, next to the skill, so `install.sh` copies it for cloud sessions (owner, 2026-11-17; the spec first put it at the repository root).

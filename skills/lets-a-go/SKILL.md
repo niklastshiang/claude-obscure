@@ -62,4 +62,43 @@ Adopt mode: skip every decision the project already records in `CLAUDE.md` or `d
 
 Each decision and each deviation from the principles gets one file in `docs/adr/`, numbered from `0001`, from `templates/docs/adr/0000-template.md` in this skill's folder. Fill every section: the options as they were put to the owner, the decision in the owner's words, the consequences for the code, and every source with the date it was read. Use the project's file language (principle *Languages*).
 
-*Not built yet:* steps 4 and 5 (scaffold, close). Stop after step 3 and list the ADRs written.
+## Step 4: Scaffold
+
+### 4.1 Toolchain first
+
+Set up what the stack needs to build and test (language runtime, SDKs, build tool) at the versions from step 3, before writing files that depend on it. On an immutable host (Fedora Atomic and similar) use a toolbox or distrobox container or the stack's own version manager; never layer packages onto the host without asking. Write down exactly how it was set up, and how to enter it, in the project's `CLAUDE.md` (*Toolchain*), so the next session can repeat it.
+
+### 4.2 The stack recipe
+
+The stack part is not a template: versions and tools change too fast. Work through this list for the decided stack, fresh, with sources from today. Every item is needed for every stack; none is skipped because a stack "does not need it" without telling the owner why. Stickler (Python, GTK, uv, ruff, pytest, Flatpak) is one worked example of a filled recipe.
+
+1. **Skeleton** from the stack's official generator or tool (e.g. `uv init`, `gradle init`, the platform's project template), at the decided versions, with its lockfile.
+2. **Lint and format** tools with a configuration; their commands go into the fast tier.
+3. **Tests** with the stack's usual framework, and one real test from day 1: the version check from `CONSTRAINTS.md` (an integer, the same everywhere). The task tier must run something real.
+4. **Coverage** tool and threshold. The threshold is a decision for step 3; recommend the default of `constraint-driven-development` unless the owner has a number.
+5. **Floor guard,** ported from the reference in `agent-skills/constraint-driven-development/references/floor-guard.md` (read it from the installed agent-skills plugin) into a language the project already needs, with this stack's suppression comments, test skips and stub patterns. Keep the reference's contract: exit 0 clean, 1 violation, 2 could not run; never print a secret's value.
+6. **CI setup:** the steps that install the toolchain in CI at the same versions; the newest generally available runner image; `actions/checkout` and every other action pinned to a full commit sha looked up today, with the version in a comment; the current gitleaks release.
+7. **`.gitignore`** for build output, caches and the binaries named in `CONSTRAINTS.md`.
+8. **Version** set to `0` in every place the stack keeps one (principle *Release numbering*).
+9. **Licence text** from its official source into `LICENSE`.
+10. **How to run the real program,** as a command, even if it shows nothing yet.
+11. **Decisions this stack adds** (e.g. an application id, a minimum platform version, signing): raise them in step 3 item 6 if they were missed, never decide them silently.
+
+### 4.3 Fill the core templates
+
+Copy every file from this skill's `templates/` folder into the project, except `docs/adr/0000-template.md` (that one is only for writing ADRs). Then replace every `{{UPPER_SNAKE}}` placeholder with what the ADRs and the recipe say. Write the text yourself; a placeholder may need a sentence, not just a value. In `scripts/check.sh`, a line `: "{{…_COMMANDS}}"` is replaced as a whole by that tier's commands, one per line. Write the `README.md` from `../house-rules/README-template.md`, short: what it is, that it is at Day 1, and how it is being made. Run every text for readers through `clarity`.
+
+**Adopt mode:** add only files that do not exist. If an existing file covers the same job (its own check script, its own CI), list it and ask the owner how to combine them; never overwrite it.
+
+## Step 5: Close
+
+Run these, in order, and report each result:
+
+1. `git init` (new project only) and `git config core.hooksPath .githooks`.
+2. `git ls-files -co --exclude-standard -z | xargs -0 grep -IlE '\{\{[A-Z0-9_]+\}\}' --` prints nothing.
+3. `scripts/check.sh task` is green, with its time measured against the budget. If it is red, fix the cause; never weaken a check to get the first commit green (principle *Quality bar*). If a tool is missing, go back to 4.1.
+4. `ls docs/adr` shows one ADR per decision from step 3 and per deviation from step 2.
+5. Commit everything as "Day 1: decisions and scaffold" through the hook (never `--no-verify`), and confirm from the output that the hook ran the task tier.
+6. Offer to create the GitHub repository with the decided visibility (`gh repo create`) and push. Do it only after the owner says yes.
+
+Then summarise for the owner: the folder, the ADRs with one line each, the check tiers with their measured times, how to run the real program, and anything the owner has to do by hand (e.g. a store account). Suggest `spec-driven-development` as the next step for the product itself.
