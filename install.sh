@@ -1,43 +1,53 @@
 #!/usr/bin/env bash
-# Installs the skills into ~/.claude/skills: the agent-skills collection (pinned to a reviewed
-# commit) and this repository's own skills, which build on it. Safe to run again.
+# Installs the skills into ~/.claude/skills without the plugin system, for Claude Code cloud
+# environments (they do not install plugins from settings): agent-skills and clarity, each pinned
+# to a reviewed commit, then this repository's own skills, which build on them. Safe to run again.
 # Never fails hard, so a cloud session still starts when GitHub is unreachable.
+# The pins must match .claude-plugin/marketplace.json; scripts/check.sh fails if they differ.
 
-AGENT_SKILLS_SHA=39b723ceebf81474d0557c1fecd01eddab585563
 DEST="$HOME/.claude/skills"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
 
 mkdir -p "$DEST"
 
-tmp=$(mktemp -d)
-if git -C "$tmp" init -q \
-  && git -C "$tmp" fetch -q --depth 1 https://github.com/addyosmani/agent-skills.git "$AGENT_SKILLS_SHA" \
-  && git -C "$tmp" checkout -q FETCH_HEAD; then
-  cp -r "$tmp"/skills/* "$DEST/"
-  cp "$tmp/LICENSE" "$DEST/agent-skills-LICENSE"
-  echo "agent-skills: installed ($AGENT_SKILLS_SHA)" >&2
-else
-  echo "agent-skills: download failed, skipping" >&2
-fi
-rm -rf "$tmp"
+# install_pinned <owner/repo> <sha> <copy function>: fetch one commit of a GitHub repository and
+# hand its checkout to the copy function. Reports and continues when the download fails.
+install_pinned() {
+  local repo=$1 sha=$2 copy=$3 dir="$TMP/${1#*/}"
+  mkdir -p "$dir"
+  if git -C "$dir" init -q \
+    && git -C "$dir" fetch -q --depth 1 "https://github.com/$repo.git" "$sha" \
+    && git -C "$dir" checkout -q FETCH_HEAD; then
+    "$copy" "$dir"
+    echo "$repo: installed ($sha)" >&2
+  else
+    echo "$repo: download failed, skipping" >&2
+  fi
+}
 
-# clarity (addyosmani/clarity, MIT): writing that reads like its author, pinned to a reviewed
-# commit; only the skill, its references and its two diagnostic scripts (stdlib only).
-CLARITY_SHA=e27ceeff60368cf6966b4ea00a5b9b36418ee9a0
-tmp=$(mktemp -d)
-if git -C "$tmp" init -q \
-  && git -C "$tmp" fetch -q --depth 1 https://github.com/addyosmani/clarity.git "$CLARITY_SHA" \
-  && git -C "$tmp" checkout -q FETCH_HEAD; then
+# agent-skills (MIT): every skill, and its licence next to them.
+copy_agent_skills() {
+  cp -r "$1"/skills/* "$DEST/"
+  cp "$1/LICENSE" "$DEST/agent-skills-LICENSE"
+}
+
+# clarity (MIT): only the skill, its references and its two diagnostic scripts (stdlib only).
+copy_clarity() {
   mkdir -p "$DEST/clarity/scripts"
-  cp "$tmp/SKILL.md" "$tmp/LICENSE" "$DEST/clarity/"
-  cp -r "$tmp/references" "$DEST/clarity/"
-  cp "$tmp/scripts/strip_markdown.py" "$tmp/scripts/prose_stats.py" "$DEST/clarity/scripts/"
-  echo "clarity: installed ($CLARITY_SHA)" >&2
-else
-  echo "clarity: download failed, skipping" >&2
-fi
-rm -rf "$tmp"
+  cp "$1/SKILL.md" "$1/LICENSE" "$DEST/clarity/"
+  cp -r "$1/references" "$DEST/clarity/"
+  cp "$1/scripts/strip_markdown.py" "$1/scripts/prose_stats.py" "$DEST/clarity/scripts/"
+}
+
+install_pinned addyosmani/agent-skills 39b723ceebf81474d0557c1fecd01eddab585563 copy_agent_skills
+install_pinned addyosmani/clarity e27ceeff60368cf6966b4ea00a5b9b36418ee9a0 copy_clarity
 
 # Own skills last: where a name collides, ours wins.
-cp -r "$HERE"/skills/* "$DEST/"
-echo "own skills: installed ($(ls "$HERE/skills" | tr '\n' ' '))" >&2
+own=()
+for skill in "$HERE"/skills/*/; do
+  cp -r "$skill" "$DEST/"
+  own+=("$(basename "$skill")")
+done
+echo "own skills: installed (${own[*]})" >&2

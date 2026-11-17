@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "niklastshiang",
+  "description": "My skills for Claude Code and the third-party skills they build on, pinned to reviewed commits.",
+  "owner": { "name": "Niklas Tshiang Tshiananga", "url": "https://github.com/niklastshiang" },
+  "plugins": [
+    {
+      "name": "owner-led-projects",
+      "source": "./",
+      "description": "Working rules for a programming project that Claude builds while a human owner makes every decision.",
+      "category": "workflow"
+    },
+    {
+      "name": "agent-skills",
+      "source": {
+        "source": "github",
+        "repo": "addyosmani/agent-skills",
+        "sha": "39b723ceebf81474d0557c1fecd01eddab585563"
+      },
+      "description": "Addy Osmani's engineering skills from spec to ship (MIT), pinned to a reviewed commit.",
+      "homepage": "https://github.com/addyosmani/agent-skills",
+      "license": "MIT",
+      "category": "workflow"
+    },
+    {
+      "name": "clarity",
+      "source": {
+        "source": "github",
+        "repo": "addyosmani/clarity",
+        "sha": "e27ceeff60368cf6966b4ea00a5b9b36418ee9a0"
+      },
+      "description": "Addy Osmani's skill for prose that reads like its author (MIT), pinned to a reviewed commit.",
+      "homepage": "https://github.com/addyosmani/clarity",
+      "license": "MIT",
+      "category": "writing"
+    }
+  ]
+}

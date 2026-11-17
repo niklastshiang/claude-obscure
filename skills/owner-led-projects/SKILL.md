@@ -132,12 +132,7 @@ Owner's rule: **the most capable model available orchestrates** (as of 2026-11: 
 
 ## Writing
 
-Every text a person reads goes through the `clarity` skill (owner, 2026-11-16): READMEs, docs,
-specs, release notes, commit messages, comments on GitHub, and the replies to the owner in chat,
-in whatever language the owner uses. Write it, then review it once with clarity's checks before
-it leaves: say what happens instead of how important it is, keep facts and attribution exactly
-as they are, cut formula (balanced threes, "not X but Y", bold labels before every line, recaps
-at the end), and stop on the last useful thought.
+Every text a person reads goes through the `clarity` skill (owner, 2026-11-16): READMEs, docs, specs, release notes, commit messages, comments on GitHub, and the replies to the owner in chat, in whatever language the owner uses. Write it, then review it once with clarity's checks before it leaves: say what happens instead of how important it is, keep facts and attribution exactly as they are, cut formula (balanced threes, "not X but Y", bold labels before every line, recaps at the end), and stop on the last useful thought.
 *Why: the owner asked for texts that do not read like AI.*
 
 ## README
