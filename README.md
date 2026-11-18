@@ -1,4 +1,4 @@
-# claude-skills
+# claude-obscure
 
 My skills for Claude Code, as a plugin marketplace that also carries the third-party skills they build on, each pinned to a commit I reviewed.
 
@@ -13,7 +13,7 @@ My skills for Claude Code, as a plugin marketplace that also carries the third-p
 In Claude Code 2.1.324 or later:
 
 ```bash
-claude plugin marketplace add niklastshiang/claude-skills
+claude plugin marketplace add niklastshiang/claude-obscure
 claude plugin install kickoff@niklastshiang
 ```
 
@@ -43,8 +43,8 @@ It needs Python 3.11 or later. `graphify install` copies the skill to `~/.claude
 Cloud sessions on claude.ai/code do not install plugins from settings. Put these two lines into the environment's setup script; `install.sh` copies the same pinned skills into `~/.claude/skills` and installs graphify the same way as above:
 
 ```bash
-git clone --depth 1 https://github.com/niklastshiang/claude-skills /tmp/claude-skills
-bash /tmp/claude-skills/install.sh
+git clone --depth 1 https://github.com/niklastshiang/claude-obscure /tmp/claude-obscure
+bash /tmp/claude-obscure/install.sh
 ```
 
 ### Remove

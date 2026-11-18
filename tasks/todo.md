@@ -219,7 +219,7 @@ Plan: `tasks/plan.md`. Spec: `SPEC-lets-a-go.md`. Every task ends with `scripts/
 
 ## Task 11: Dry run adopt mode
 
-**Description:** Run `/kickoff:lets-a-go` on a copy of `claude-skills` in a scratch folder.
+**Description:** Run `/kickoff:lets-a-go` on a copy of `claude-obscure` in a scratch folder.
 
 **Acceptance criteria:**
 - [ ] No existing file changed (`git diff` on tracked files is empty)

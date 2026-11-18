@@ -1,4 +1,4 @@
-# claude-skills: project rules
+# claude-obscure: project rules
 
 This repository follows its own skill, `skills/house-rules/SKILL.md` (plugin `kickoff`). The Day 1 decisions
 for this repository:

@@ -1,6 +1,6 @@
 # To do
 
-- [ ] **New name for the repository** (owner, 2026-11-17). The marketplace name `niklastshiang` and the plugin names are not tied to it, but the install lines in the README and `plugin.json` are.
+- [x] **New name for the repository** (owner, 2026-11-17; decided 2026-11-18: `claude-obscure`, the local folder too). Renamed on GitHub; GitHub redirects the old URL for the web and for `git clone`/`fetch` as long as no new repository takes the name `claude-skills` (docs.github.com, checked 2026-11-18). The marketplace name `niklastshiang` and the plugin names stay.
 
 - [ ] **Version numbering** (owner, 2026-11-18: plain integers, as in `principles.md`). The first release after Phase 3 of `tasks/plan.md` sets `"version": "1"` in `plugin.json` and the tag `1`, and `check_repo.py` gets a check that they agree. Until then there is no `version`, so every commit is an update; `claude plugin validate` warns about it and the check accepts the warning.
 

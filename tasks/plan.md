@@ -49,7 +49,7 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 ### Phase 3: Proof
 - [ ] Task 9: Dry run GTK/Python
 - [ ] Task 10: Dry run Android
-- [ ] Task 11: Dry run adopt mode on a copy of `claude-skills`
+- [ ] Task 11: Dry run adopt mode on a copy of `claude-obscure`
 - [ ] Task 12: README and TODO.md
 
 ### Checkpoint C: Complete

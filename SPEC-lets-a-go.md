@@ -91,7 +91,7 @@ The skill is prose, so most of its testing is running it.
 - **Dry runs** (by hand, before the work counts as done):
   1. New GTK/Python app in a scratch folder
   2. New Android app in a scratch folder (the stack the templates were not built from)
-  3. Adopt mode on a copy of `claude-skills` itself
+  3. Adopt mode on a copy of `claude-obscure` itself
 - Each dry run passes the Success Criteria below; findings go into the recipe, not into special cases.
 
 ## Boundaries
