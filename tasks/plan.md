@@ -30,8 +30,8 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] Task 2: Skill `lets-a-go`, first slice: where the project goes (new folder or adopt mode)
 
 ### Checkpoint A: Names
-- [ ] `scripts/check.sh` green
-- [ ] In an empty folder, a new session lists `/kickoff:lets-a-go` and `/kickoff:house-rules` with no install step
+- [x] `scripts/check.sh` green (2026-11-18)
+- [x] In an empty folder, a new session lists `/kickoff:lets-a-go` and `/kickoff:house-rules` with no install step (2026-11-18, `claude -p` in an empty scratch folder; no `owner-led-projects` left in `claude plugin list`)
 - [ ] Owner reviews
 
 ### Phase 2: The run
