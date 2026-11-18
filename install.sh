@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installs the skills into ~/.claude/skills without the plugin system, for Claude Code cloud
-# environments (they do not install plugins from settings): agent-skills and clarity, each pinned
-# to a reviewed commit, then this repository's own skills, which build on them. Safe to run again.
+# environments (they do not install plugins from settings): agent-skills, clarity and graphify, each
+# pinned to a reviewed commit, then this repository's own skills, which build on them. Safe to run again.
 # Never fails hard, so a cloud session still starts when GitHub is unreachable.
 # The pins must match .claude-plugin/marketplace.json; scripts/check.sh fails if they differ.
 
@@ -43,6 +43,25 @@ copy_clarity() {
 
 install_pinned addyosmani/agent-skills 39b723ceebf81474d0557c1fecd01eddab585563 copy_agent_skills
 install_pinned addyosmani/clarity e27ceeff60368cf6966b4ea00a5b9b36418ee9a0 copy_clarity
+
+# graphify (Apache-2.0): a Python package, not a set of skill files. Installed as a tool from the
+# pinned commit; `graphify install` then writes its skill to ~/.claude/skills/graphify and a short
+# block into ~/.claude/CLAUDE.md (no hooks for a global install). Needs Python 3.11 or later.
+# The pin must match the one in README.md; scripts/check.sh fails if they differ.
+GRAPHIFY_SHA=340268a70a83588d6b3c6de1fffb05326350ef1d
+install_graphify() {
+  local src="git+https://github.com/Graphify-Labs/graphify@$GRAPHIFY_SHA"
+  if command -v uv >/dev/null; then
+    uv tool install -q --force "$src"
+  elif command -v pipx >/dev/null; then
+    pipx install -q --force "$src"
+  else
+    python3 -m pip install -q --user "$src"
+  fi && PATH="$HOME/.local/bin:$PATH" graphify install >/dev/null \
+    && echo "Graphify-Labs/graphify: installed ($GRAPHIFY_SHA)" >&2 \
+    || echo "Graphify-Labs/graphify: install failed, skipping" >&2
+}
+install_graphify
 
 # Own skills last: where a name collides, ours wins.
 own=()

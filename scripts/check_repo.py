@@ -1,6 +1,7 @@
 """Checks that keep the repository's files consistent with each other.
 
 - the pinned commits in install.sh and .claude-plugin/marketplace.json are full SHAs and agree
+- graphify's pinned commit in install.sh is a full SHA and the README installs the same one
 - every skill under skills/ has front matter whose name matches its folder, and a description
 - every skill is listed in the README's table
 - every core template of lets-a-go exists
@@ -30,6 +31,16 @@ for repo, sha in pins.items():
         errors.append(f"{repo}: install.sh pins {found.group(1)}, marketplace.json pins {sha}")
 
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+graphify = re.search(r"^GRAPHIFY_SHA=(\S+)$", install, re.M)
+if not graphify or not re.fullmatch(r"[0-9a-f]{40}", graphify.group(1)):
+    errors.append("install.sh: GRAPHIFY_SHA is not a full 40-character sha")
+else:
+    pins["Graphify-Labs/graphify"] = graphify.group(1)
+    readme_pins = set(re.findall(r"Graphify-Labs/graphify@([0-9a-f]+)", readme))
+    if readme_pins != {graphify.group(1)}:
+        errors.append(f"graphify: install.sh pins {graphify.group(1)}, README.md pins "
+                      f"{', '.join(sorted(readme_pins)) or 'nothing'}")
 for skill in sorted((ROOT / "skills").iterdir()):
     text = (skill / "SKILL.md").read_text(encoding="utf-8")
     head = re.match(r"---\n(.*?)\n---\n", text, re.S)
