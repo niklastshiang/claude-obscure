@@ -46,6 +46,20 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] `scripts/check.sh` green
 - [x] Owner reads `principles.md` and `skills/lets-a-go/SKILL.md`
 
+### Phase 2b: Lessons from Stickler, part 2 (draft, 2026-11-24; spec `SPEC-stickler-lessons-2.md`)
+- [ ] Task 13: `principles.md`: *More than one OS*, *How it was made* per device, *Hook in every clone* enforced
+- [ ] Task 14: `lets-a-go` step 3 and the recipe: frameworks for more than one system, CI on every system
+- [ ] Task 15: Templates: intent, the hook check in `check.sh`, the usage line and `ai_usage.py`; `check_repo.py` requires them
+- [ ] Task 16: `house-rules`, lessons 1–5 (intent, a new system's CI first, child processes, containers and VMs, the spike twice)
+- [ ] Task 17: `house-rules`, lessons 6–9 (subagents' diffs, one rule in one place, `main` green, comparable projects) and the overview
+- [ ] Task 18: Fresh-context review of 13–17 against the spec; `clarity` once
+
+### Checkpoint B2: Lessons
+- [ ] `scripts/check.sh` green
+- [ ] Owner reads the diff of `principles.md`, `lets-a-go` and `house-rules`
+
+Phase 3 starts after Checkpoint B2, so the dry runs test the changed skills. The app of Task 10 is open: the owner chooses it (2026-11-24).
+
 ### Phase 3: Proof
 - [ ] Task 9: Dry run GTK/Python
 - [ ] Task 10: Dry run Android

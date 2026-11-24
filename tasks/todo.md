@@ -180,6 +180,113 @@ Plan: `tasks/plan.md`. Spec: `SPEC-lets-a-go.md`. Every task ends with `scripts/
 - [ ] `scripts/check.sh` green
 - [ ] Owner reads `principles.md` and `skills/lets-a-go/SKILL.md`
 
+## Phase 2b: Lessons from Stickler, part 2
+
+Spec: `SPEC-stickler-lessons-2.md` (draft, 2026-11-24). Every new rule carries its *Why* with the evidence the spec names.
+
+## Task 13: `principles.md`
+
+**Description:** Add the row *More than one OS* as the spec words it (owner, 2026-11-24). Change *How it was made* (figures per device in `docs/usage/<device>.json`, the README shows the sum) and *Hook in every clone* (enforced by `check.sh task`), each with its *Why*.
+
+**Acceptance criteria:**
+- [ ] The new row names no framework
+- [ ] Each changed row keeps its old date and adds the new one
+
+**Verification:**
+- [ ] `scripts/check.sh` green (the principles check covers the new row)
+
+**Dependencies:** None (Q3 answered: desktop and mobile alike, owner 2026-11-24)
+
+**Files likely touched:** `skills/lets-a-go/principles.md`
+
+**Estimated scope:** S
+
+## Task 14: `lets-a-go` step 3 and the recipe
+
+**Description:** Step 3, decision 2: when decision 1 names more than one operating system, offer frameworks only, weighed by the criteria of the spec. Recipe 4.2, item 6: CI runs the full test suite on every decided system from the first commit, each job with a time limit.
+
+**Acceptance criteria:**
+- [ ] No stack-specific branch added; no framework named as a default
+- [ ] The *Why* points to the principle, not repeated
+
+**Verification:**
+- [ ] `scripts/check.sh` green
+
+**Dependencies:** Task 13
+
+**Files likely touched:** `skills/lets-a-go/SKILL.md`
+
+**Estimated scope:** S
+
+## Task 15: Templates and their check
+
+**Description:** `templates/docs/intent/0000-template.md` with the fields outcome, user, first version, afterwards, distribution, success, out of scope, confirmed by. `templates/scripts/check.sh`: the task tier stops with a message when `core.hooksPath` is not `.githooks` and `CI` is not set. `templates/CLAUDE.md`: the usage line. `templates/scripts/ai_usage.py` (owner, 2026-11-24) from Stickler's script, without its name, standard library only, prices with their source and date. `check_repo.py` requires the new files; `lets-a-go` step 4.3 and step 5 mention them.
+
+**Acceptance criteria:**
+- [ ] In a scratch git repository with the template, `check.sh task` without the hook stops with the message, with `CI=true` it does not, with the hook it runs
+- [ ] `check_repo.py` fails when the intent template is missing (tested by hand once)
+
+**Verification:**
+- [ ] `scripts/check.sh` green, shellcheck included; the three runs above
+
+**Dependencies:** Task 13
+
+**Files likely touched:** `skills/lets-a-go/templates/docs/intent/0000-template.md`, `skills/lets-a-go/templates/scripts/check.sh`, `skills/lets-a-go/templates/CLAUDE.md`, `skills/lets-a-go/templates/scripts/ai_usage.py`, `scripts/check_repo.py`, `skills/lets-a-go/SKILL.md`
+
+**Estimated scope:** M
+
+## Task 16: `house-rules`, lessons 1–5
+
+**Description:** Intent before spec (*Decisions Belong to the Owner*); a new system's test suite in CI first, containers for install and remove and a VM for system services, the spike on a runner and on the owner's device (*Definition of Done*); child processes fully specified (*Checks and Tests That Do Not Lie*). Extend existing rules where the spec says so instead of adding near-copies.
+
+**Acceptance criteria:**
+- [ ] Each lesson has its one-line *Why* with the evidence from the spec
+- [ ] *Red Flags* and *Verification* gain a line where a lesson can be checked
+
+**Verification:**
+- [ ] `scripts/check.sh` green
+
+**Dependencies:** Task 15 (the intent template is linked)
+
+**Files likely touched:** `skills/house-rules/SKILL.md`
+
+**Estimated scope:** M
+
+## Task 17: `house-rules`, lessons 6–9 and the overview
+
+**Description:** Subagents: the base branch in the brief, the diff read before the commit (*Orchestration*); one rule in one place with graphify before a second consumer of the core; `main` green at the start of a session and before every tag (*Release*); *README* becomes *Learning from comparable projects*. The overview says what Stickler covers now (releases 1–10 and the start of 11).
+
+**Acceptance criteria:**
+- [ ] `grep -n "six releases" skills/` finds nothing
+- [ ] The overrides table still holds (the README row names the renamed section)
+
+**Verification:**
+- [ ] `scripts/check.sh` green
+
+**Dependencies:** Task 16
+
+**Files likely touched:** `skills/house-rules/SKILL.md`, `README.md` (the plugin table's line, if it names Stickler's state)
+
+**Estimated scope:** S
+
+## Task 18: Review
+
+**Description:** A fresh-context subagent compares tasks 13–17 with the spec and checks every *Why* against Stickler (commit, task, run). Findings checked before they are fixed. Then `clarity` once over every changed text.
+
+**Acceptance criteria:**
+- [ ] Every finding fixed or answered in the done note
+
+**Verification:**
+- [ ] `scripts/check.sh` green
+
+**Dependencies:** Task 17
+
+**Estimated scope:** S
+
+## Checkpoint B2: Lessons
+- [ ] `scripts/check.sh` green
+- [ ] Owner reads the diff of `principles.md`, `lets-a-go` and `house-rules`
+
 ## Phase 3: Proof
 
 ## Task 9: Dry run GTK/Python
