@@ -224,14 +224,16 @@ Done 2026-11-24: decision 2 offers frameworks only for more than one system with
 
 ## Task 15: Templates and their check
 
+Done 2026-11-24: `templates/docs/intent/0000-template.md` (fields as in the spec, plus *Open*; written with `<…>` instead of `{{…}}`, so it is copied into every project and the placeholder check stays green); the hook check in `templates/scripts/check.sh` (task and full tiers outside CI); the intent and usage lines in `templates/CLAUDE.md`; step 4.3 copies the intent template and `ai_usage.py`, step 5 records the first day's usage. Tried in a scratch repository: without the hook `check.sh task` stops with exit 2 and the message, with `CI=true` and with `fast` it runs, with the hook it runs. `check_repo.py` without the intent template: `lets-a-go: template docs/intent/0000-template.md is missing`, exit 1. `ai_usage.py` was written earlier for the README (see above).
+
 **Description:** `templates/docs/intent/0000-template.md` with the fields outcome, user, first version, afterwards, distribution, success, out of scope, confirmed by. `templates/scripts/check.sh`: the task tier stops with a message when `core.hooksPath` is not `.githooks` and `CI` is not set. `templates/CLAUDE.md`: the usage line. `templates/scripts/ai_usage.py` (owner, 2026-11-24) from Stickler's script, without its name, standard library only, prices with their source and date. `check_repo.py` requires the new files; `lets-a-go` step 4.3 and step 5 mention them.
 
 **Acceptance criteria:**
-- [ ] In a scratch git repository with the template, `check.sh task` without the hook stops with the message, with `CI=true` it does not, with the hook it runs
-- [ ] `check_repo.py` fails when the intent template is missing (tested by hand once)
+- [x] In a scratch git repository with the template, `check.sh task` without the hook stops with the message, with `CI=true` it does not, with the hook it runs
+- [x] `check_repo.py` fails when the intent template is missing (tested by hand once)
 
 **Verification:**
-- [ ] `scripts/check.sh` green, shellcheck included; the three runs above
+- [x] `scripts/check.sh` green, shellcheck included; the three runs above
 
 **Dependencies:** Task 13
 

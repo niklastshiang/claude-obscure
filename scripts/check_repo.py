@@ -57,7 +57,8 @@ for skill in sorted((ROOT / "skills").iterdir()):
         errors.append(f"{skill.name}: not listed in README.md")
 
 TEMPLATES = ["CLAUDE.md", "CONSTRAINTS.md", "scripts/check.sh", ".githooks/pre-commit",
-             ".github/workflows/check.yml", "docs/adr/0000-template.md", "scripts/ai_usage.py"]
+             ".github/workflows/check.yml", "docs/adr/0000-template.md", "scripts/ai_usage.py",
+             "docs/intent/0000-template.md"]
 for t in TEMPLATES:
     if not (ROOT / "skills/lets-a-go/templates" / t).is_file():
         errors.append(f"lets-a-go: template {t} is missing")

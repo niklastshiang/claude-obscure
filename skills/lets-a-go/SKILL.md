@@ -89,7 +89,7 @@ The stack part is not a template: versions and tools change too fast. Work throu
 
 ### 4.3 Fill the core templates
 
-Copy every file from this skill's `templates/` folder into the project, except `docs/adr/0000-template.md` (that one is only for writing ADRs). Then replace every `{{UPPER_SNAKE}}` placeholder with what the ADRs and the recipe say. Write the text yourself; a placeholder may need a sentence, not just a value. In `scripts/check.sh`, a line `: "{{…_COMMANDS}}"` is replaced as a whole by that tier's commands, one per line. Write the `README.md` from `../house-rules/README-template.md`, short: what it is, that it is at Day 1, and how it is being made. Run every text for readers through `clarity`.
+Copy every file from this skill's `templates/` folder into the project, except `docs/adr/0000-template.md` (that one is only for writing ADRs). `docs/intent/0000-template.md` is copied as it is, for the interviews of later features, and `scripts/ai_usage.py` as well, for the AI figures (principle *How it was made*; it needs `python3`). Then replace every `{{UPPER_SNAKE}}` placeholder with what the ADRs and the recipe say. Write the text yourself; a placeholder may need a sentence, not just a value. In `scripts/check.sh`, a line `: "{{…_COMMANDS}}"` is replaced as a whole by that tier's commands, one per line. Write the `README.md` from `../house-rules/README-template.md`, short: what it is, that it is at Day 1, and how it is being made. Run every text for readers through `clarity`.
 
 **Adopt mode:** add only files that do not exist. If an existing file covers the same job (its own check script, its own CI), list it and ask the owner how to combine them; never overwrite it.
 
@@ -101,7 +101,8 @@ Run these, in order, and report each result:
 2. `git ls-files -co --exclude-standard -z | xargs -0 grep -IlE '\{\{[A-Z0-9_]+\}\}' --` prints nothing.
 3. `scripts/check.sh task` is green, with its time measured against the budget. If it is red, fix the cause; never weaken a check to get the first commit green (principle *Quality bar*). If a tool is missing, go back to 4.1.
 4. `ls docs/adr` shows one ADR per decision from step 3 and per deviation from step 2.
-5. Commit everything as "Day 1: decisions and scaffold" through the hook (never `--no-verify`), and confirm from the output that the hook ran the task tier.
-6. Offer to create the GitHub repository with the decided visibility (`gh repo create`) and push. Do it only after the owner says yes.
+5. Ask the owner once for this computer's short name (e.g. `linux`), then `python3 scripts/ai_usage.py --record <name>`; `docs/usage/<name>.json` goes into the first commit.
+6. Commit everything as "Day 1: decisions and scaffold" through the hook (never `--no-verify`), and confirm from the output that the hook ran the task tier.
+7. Offer to create the GitHub repository with the decided visibility (`gh repo create`) and push. Do it only after the owner says yes.
 
 Then summarise for the owner: the folder, the ADRs with one line each, the check tiers with their measured times, how to run the real program, and anything the owner has to do by hand (e.g. a store account). Suggest `spec-driven-development` as the next step for the product itself.

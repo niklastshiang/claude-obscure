@@ -19,6 +19,13 @@ if unfilled=$(git ls-files -co --exclude-standard -z | xargs -0 grep -IlE '\{\{[
   exit 2
 fi
 
+# The hook must be on in every clone (principle *Hook in every clone*); CI sets CI and needs none.
+if [[ "$stage" != fast && -z "${CI:-}" && "$(git config --get core.hooksPath || true)" != .githooks ]]; then
+  echo "check.sh: the pre-commit hook is not enabled in this clone. Run:" >&2
+  echo "  git config core.hooksPath .githooks" >&2
+  exit 2
+fi
+
 floor_guard=("{{FLOOR_GUARD}}") # the floor guard command, one array element per word
 
 fast() {
