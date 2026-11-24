@@ -2,7 +2,7 @@
 
 A starting point, based on the README Stickler settled on, with Install moved up so a reader gets
 to "what is it, does it fit me, how do I install it" quickly. Before using it, compare it with the
-READMEs of successful projects of the same kind (see SKILL.md, *README*) and adapt: drop what this
+READMEs of successful projects of the same kind (see SKILL.md, *Learning from comparable projects*) and adapt: drop what this
 project does not need, and move up what its readers look for first. *(optional)* marks sections
 that only some projects need.
 

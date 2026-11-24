@@ -268,14 +268,16 @@ Done 2026-11-24: intent before spec (*Decisions Belong to the Owner*); the spike
 
 ## Task 17: `house-rules`, lessons 6–9 and the overview
 
+Done 2026-11-24: *Orchestration*: cheaper models for mechanical edits with the diff read, the base branch in the brief, "read the diff, not the report" with its *Why*; *One rule in one place* next to the UI-toolkit rule; `main` green at session start and before a tag (*Release*); *README* is now *Learning from comparable projects* with a paragraph on websites and features (the overrides table and `README-template.md` point to it). Overview: nine releases, five package formats, a Windows app begun. Three red flags, two verification lines. `grep -rn "six releases" skills/` finds nothing. The top-level README needed no change (it already says nine releases).
+
 **Description:** Subagents: the base branch in the brief, the diff read before the commit (*Orchestration*); one rule in one place with graphify before a second consumer of the core; `main` green at the start of a session and before every tag (*Release*); *README* becomes *Learning from comparable projects*. The overview says what Stickler covers now (releases 1–10 and the start of 11).
 
 **Acceptance criteria:**
-- [ ] `grep -n "six releases" skills/` finds nothing
-- [ ] The overrides table still holds (the README row names the renamed section)
+- [x] `grep -n "six releases" skills/` finds nothing
+- [x] The overrides table still holds (the README row names the renamed section)
 
 **Verification:**
-- [ ] `scripts/check.sh` green
+- [x] `scripts/check.sh` green
 
 **Dependencies:** Task 16
 

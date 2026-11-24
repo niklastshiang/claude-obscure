@@ -9,7 +9,7 @@ description: Working rules for a programming project that Claude builds while a 
 
 In these projects Claude writes all the code and the owner makes all the decisions. That split works, but it has its own failure modes: conventions decided late and then changed at great cost, work declared done that breaks the first time the owner opens the real program, decisions made silently by the agent, checks weakened to get green, and documents that drift from the code.
 
-This skill collects what one such project taught (Stickler, 2026-11: a command-line benchmark that grew into a packaged desktop app over six releases): what "done" means, how to involve the owner, how to orchestrate subagents, and how to release and present the result. Rules that come from a concrete mistake or success carry a one-line *Why*, so the owner can see where they come from.
+This skill collects what one such project taught (Stickler, 2026-11: a command-line benchmark that grew into desktop apps for Linux and the Mac, in five package formats, over nine releases, and then began a Windows app): what "done" means, how to involve the owner, how to orchestrate subagents, and how to release and present the result. Rules that come from a concrete mistake or success carry a one-line *Why*, so the owner can see where they come from.
 
 It does not repeat the general skills it builds on. Where a step is covered there, it names the skill:
 
@@ -53,7 +53,7 @@ Every project starts with `/kickoff:lets-a-go`: it shows the owner's principles 
 - **Present options with a recommendation; the owner decides.** Phrase it as a choice the owner can answer in a word, with the trade-off in one line each.
   *Why: in Stickler every product choice went this way, and none had to be reverted because the owner had not seen it coming.*
 - **Record every decision where it applies**, tagged `(owner, YYYY-MM-DD)`: in the spec, in the task list, and in the commit subject when a change was the owner's wish (`… (owner)`). Lasting decisions get an ADR (`documentation-and-adrs`). Mark superseded parts as superseded, don't delete them.
-  *Why: six releases later, every "why is it like this?" was answerable from the spec and the ADRs.*
+  *Why: nine releases in, every "why is it like this?" was answerable from the spec and the ADRs.*
 - **Intent before spec.** A large feature starts with an interview (`interview-me`). Its result goes into `docs/intent/<feature>.md` (template from `lets-a-go`: outcome, user, first version, afterwards, distribution, success, out of scope, open), and the owner confirms it before the spec is written.
   *Why: in Stickler the website and the Windows app both started this way; the Windows interview corrected the first version's scope before a line of spec was written ("the Mac app had no playback at release 8").*
 - **Spec first, module by module.** Big features become a capability map of modules (`spec-driven-development`). Each module is specified, approved by the owner, built, and closed with a checkpoint, in a stated build order. When a decision changes, change the spec first.
@@ -95,6 +95,8 @@ Tasks follow `planning-and-task-breakdown` (acceptance, verify command, dependen
 - **Measure progress by what the step produces**, not by a convenient proxy.
   *Why: a download bar measured by free disk space showed "78 of 78 MB" halfway through.*
 - **Keep logic free of the UI toolkit**, enforced by a test; coverage then applies to the logic and the UI layer stays thin.
+- **One rule in one place.** Whatever decides behaviour (which actions a state allows, what a removal deletes) lives once, in the core, with a test that every interface uses it. Before a module that adds a second consumer of the core, let a graphify graph look for copies.
+  *Why: in Stickler the rule for which buttons each state enables lived in the GTK window, in the bridge for the Mac app and in the controller, until a graphify graph showed the three copies (task 125).*
 - **If results are cached under a hash of the code**, let the hash ignore comments and formatting from the start, and have a tool to re-key after edits that do not change behaviour (never after a real change).
   *Why: without it, translating comments would have thrown away hours of computed results.*
 
@@ -104,16 +106,18 @@ Owner's rule: **the most capable model available orchestrates** (as of 2026-11: 
 
 - Delegate what is independent: a fresh-context review of finished work, research across many files or the web, parts that split cleanly.
 - Do not delegate work that needs this conversation's context or decisions.
-- A subagent may run on a cheaper model for pure search or extraction; the orchestrating model evaluates and decides (owner, 2026-11-16).
-- Brief a subagent like a peer: goal, sources, what is already known, the exact output wanted. Ask for evidence (file:line, commit) so the result can be checked. No secrets in briefs.
-- **Check every result before using it**: spot-check its evidence, rerun its key claim.
-  *Why: in writing this skill, a reviewer's claims about upstream conflicts were checked against the files before any change was made; all held, but that is not something to assume.*
+- A subagent may run on a cheaper model for pure search or extraction, and for mechanical edits whose diff the orchestrating model reads before the commit; the orchestrating model evaluates and decides (owner, 2026-11-16).
+- Brief a subagent like a peer: goal, sources, what is already known, the exact output wanted, and the branch its work starts from. Ask for evidence (file:line, commit) so the result can be checked. No secrets in briefs.
+- **Check every result before using it**: spot-check its evidence, rerun its key claim. For edits, **read the diff, not the report**.
+  *Why: in writing this skill, a reviewer's claims about upstream conflicts were checked against the files before any change was made; all held, but that is not something to assume. In Stickler's Windows work a subagent's report named changes that were not in the tree, and another's worktree started from `main` and missed a release's work.*
 - Before every release, one fresh-context subagent compares every document with the code, and a second one reviews the code changed since the last release.
   *Why: before one release this found about twenty doc errors and real packaging bugs (wrong runtime in one environment, version/tag mismatch, unpinned CI actions).*
 
 ## Release
 
 - **Version numbers per the principle** *Release numbering* (plain integers, +1 per release, every release counts, fixes included; Stickler, ADR 0006): the SemVer bump rules of `git-workflow-and-versioning` and its "breaking → major" check do not apply; its commit, changelog and tagging practices still do. A CI step should fail if the tag and the version in the code differ.
+- **`main` is green before every tag, and checked at the start of every session** (`gh run list --branch main --limit 1`). A red `main` is the first task, before anything else.
+  *Why: Stickler's `main` was red for two days (gettext missing in CI) and was found only when release 9 was tagged.*
 - **Keep a written release checklist that grows with the product.** It holds the few mechanical steps (security alerts, version bump, release commit, tag, attached artefacts, metadata, docs check, regenerated README figures) and, above all, **the most important features to try by hand** before the tag. It does not need to be numbered; it needs to be current. When a release adds a feature that matters, add a line.
   *Why: the owner's hand checks at each checkpoint found what tests did not; the list makes that repeatable at every release.*
 - **Generate the facts the README shows** (test count, coverage, version, AI cost) with a script and commit the output, so the README does not depend on an outside service and the numbers are refreshed as a release step.
@@ -124,12 +128,15 @@ Owner's rule: **the most capable model available orchestrates** (as of 2026-11: 
 Every text a person reads goes through the `clarity` skill (owner, 2026-11-16): READMEs, docs, specs, release notes, commit messages, comments on GitHub, and the replies to the owner in chat, in whatever language the owner uses. Write it, then review it once with clarity's checks before it leaves: say what happens instead of how important it is, keep facts and attribution exactly as they are, cut formula (balanced threes, "not X but Y", bold labels before every line, recaps at the end), and stop on the last useful thought.
 *Why: the owner asked for texts that do not read like AI.*
 
-## README
+## Learning from comparable projects
 
-This replaces the README structure in `documentation-and-adrs` for these projects. Start from `README-template.md` in this skill. Then, **before writing or improving a README, look at the READMEs of successful comparable projects** (popular, actively maintained, same kind of software and audience): what they lead with, how quickly a reader gets to "what is it, does it fit me, how do I install it", how they show the product (screenshots, a short demo), what they leave out. Adopt what works, name the projects you learned from, and propose the changes to the owner rather than restyling silently (owner, 2026-11-16).
+**README.** This replaces the README structure in `documentation-and-adrs` for these projects. Start from `README-template.md` in this skill. Then, **before writing or improving a README, look at the READMEs of successful comparable projects** (popular, actively maintained, same kind of software and audience): what they lead with, how quickly a reader gets to "what is it, does it fit me, how do I install it", how they show the product (screenshots, a short demo), what they leave out. Adopt what works, name the projects you learned from, and propose the changes to the owner rather than restyling silently (owner, 2026-11-16).
 
 Keep decoration modest: a few badges that state facts are enough.
 *Why: the owner removed six badges again.*
+
+**Website and features.** The same look at successful projects of the same kind before a website or a feature is specified: what they offer, how they lay it out, what users of that kind expect. Name each project with its licence, say what to take and what not, and let the owner say yes before it goes into a spec.
+*Why: Stickler's download cards, its scrolling "how it works" story and its backup came from TuxTalk, its test icon for builds from blueprint, each with the owner's yes.*
 
 ## Overrides of the agent-skills
 
@@ -137,7 +144,7 @@ Keep decoration modest: a few badges that state facts are enough.
 |---|---|
 | `git-workflow-and-versioning`: SemVer | The principle *Release numbering*; SemVer bump rules only where a project's ADR chose SemVer |
 | Definition of done (`planning-and-task-breakdown`): runtime check and human approval on every change | Pure logic is done with green tests; real-program checks for what meets the real environment, batched at module checkpoints |
-| `documentation-and-adrs`: README structure | `README-template.md` plus comparison with successful projects |
+| `documentation-and-adrs`: README structure | `README-template.md` plus *Learning from comparable projects* |
 
 ## Common Rationalizations
 
@@ -156,6 +163,9 @@ Keep decoration modest: a few badges that state facts are enough.
 
 - Product code written before language, licence, versions and the quality bar are settled
 - A commit made while the task-tier check was red, or a clone without the hook enabled
+- Work started while `main` is red, or a tag on a red `main`
+- A subagent's edits committed on the strength of its report, without reading the diff
+- A behaviour rule that exists in two interfaces
 - A diff that adds a suppression, a skip or a lowered threshold "to get green"
 - A UI, packaging or integration task marked done without anyone running the real program
 - A user-visible choice made without offering options, or a decision with no `(owner, date)` or ADR behind it
@@ -177,7 +187,8 @@ Keep decoration modest: a few badges that state facts are enough.
 - [ ] Every module that meets the real environment had a checkpoint in the real program
 - [ ] Every operating system the project ships for runs the full test suite in CI
 - [ ] Every large feature since the last release has a confirmed intent in `docs/intent/`
-- [ ] Every subagent result that was used was spot-checked
+- [ ] Every subagent result that was used was spot-checked; every subagent edit was read as a diff
+- [ ] `main` was green when the tag was set
 - [ ] The release checklist lists the current key features, and they were tried
 - [ ] README figures were regenerated, and the README was compared with successful projects of its kind
 - [ ] Every text for readers went through `clarity` once before it left
