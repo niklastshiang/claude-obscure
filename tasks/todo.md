@@ -287,13 +287,15 @@ Done 2026-11-24: *Orchestration*: cheaper models for mechanical edits with the d
 
 ## Task 18: Review
 
+Done 2026-11-24: The fresh-context review checked every *Why* against Stickler; each finding was verified there before it was fixed. Fixed: the hook *Why* (the README told every clone to enable it), the intent *Why* (the Windows intent caught a wrong assumption, the owner confirmed the corrected file), the spike *Why* (the policy had already refused uv's unsigned `python.exe`), containers and VMs (the .deb's polkit refusal in the Ubuntu VM, Fedora's empty list in a container), task 125 (two copies, merging them turned up a third), the blueprint (an idea for later), lesson 4's evidence in the spec; the CI template sets `core.autocrlf false` so bash does not fail on `check.sh` on Windows; recipe item 6 names stack dumps, per-runner setup steps, emulator runners and the Linux secrets job; `py -3` on Windows; the skipped CI is named in the commit message. Answered, not changed: "nine releases" against the spec's "1–10" (the tags stop at v9); the hook check also runs in the full tier outside CI, on purpose. `clarity` (review mode) over the added prose: recipe item 6 split into sub-items (a clause had lost its reference), "Enforced, not only written down" dropped, "before anything else" dropped, the spike *Why* ends on the fact instead of a general claim, *Website and features* is an instruction. The intent template, the `CLAUDE.md` lines, the red flags and the verification lines kept as they are.
+
 **Description:** A fresh-context subagent compares tasks 13–17 with the spec and checks every *Why* against Stickler (commit, task, run). Findings checked before they are fixed. Then `clarity` once over every changed text.
 
 **Acceptance criteria:**
-- [ ] Every finding fixed or answered in the done note
+- [x] Every finding fixed or answered in the done note
 
 **Verification:**
-- [ ] `scripts/check.sh` green
+- [x] `scripts/check.sh` green
 
 **Dependencies:** Task 17
 

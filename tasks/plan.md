@@ -52,7 +52,7 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] Task 15: Templates: intent, the hook check in `check.sh`, the usage line and `ai_usage.py`; `check_repo.py` requires them
 - [x] Task 16: `house-rules`, lessons 1–5 (intent, a new system's CI first, child processes, containers and VMs, the spike twice)
 - [x] Task 17: `house-rules`, lessons 6–9 (subagents' diffs, one rule in one place, `main` green, comparable projects) and the overview
-- [ ] Task 18: Fresh-context review of 13–17 against the spec; `clarity` once
+- [x] Task 18: Fresh-context review of 13–17 against the spec; `clarity` once
 
 ### Checkpoint B2: Lessons
 - [ ] `scripts/check.sh` green

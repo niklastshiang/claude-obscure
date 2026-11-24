@@ -55,7 +55,7 @@ Every project starts with `/kickoff:lets-a-go`: it shows the owner's principles 
 - **Record every decision where it applies**, tagged `(owner, YYYY-MM-DD)`: in the spec, in the task list, and in the commit subject when a change was the owner's wish (`… (owner)`). Lasting decisions get an ADR (`documentation-and-adrs`). Mark superseded parts as superseded, don't delete them.
   *Why: nine releases in, every "why is it like this?" was answerable from the spec and the ADRs.*
 - **Intent before spec.** A large feature starts with an interview (`interview-me`). Its result goes into `docs/intent/<feature>.md` (template from `lets-a-go`: outcome, user, first version, afterwards, distribution, success, out of scope, open), and the owner confirms it before the spec is written.
-  *Why: in Stickler the website and the Windows app both started this way; the Windows interview corrected the first version's scope before a line of spec was written ("the Mac app had no playback at release 8").*
+  *Why: in Stickler the website and the Windows app both started this way; writing the Windows intent down caught a wrong assumption about the first version's scope (the Mac app had no playback at release 8), and the owner confirmed the corrected file.*
 - **Spec first, module by module.** Big features become a capability map of modules (`spec-driven-development`). Each module is specified, approved by the owner, built, and closed with a checkpoint, in a stated build order. When a decision changes, change the spec first.
 - **Note what you find outside the task instead of fixing it silently**: a short "Found on the way" or "Noticed, not changed" line in the task's done note. The owner decides whether it becomes a task.
   *Why: a note that Ctrl+C did not reach a child process became its own task, at the owner's call.*
@@ -73,12 +73,12 @@ Tasks follow `planning-and-task-breakdown` (acceptance, verify command, dependen
     *Why: nearly every checkpoint found bugs that all tests had passed: a data file missing from the installed package, translations missing from one package format, a spinner that stuttered, a removal that also deleted shipped files, a progress bar that overshot, numbers formatted by the locale.*
 - **Build and run the real, installed artefact early**, not in the last module.
   *Why: the first run of the installed package failed on a file that only existed in the development checkout.*
-- **A new operating system gets the whole test suite in CI first**, before any interface code for it. The job has a time limit and prints the stack of a hanging test; a test that cannot hold there is skipped with its reason written in the test.
+- **A new operating system gets the whole test suite in CI first**, before any interface code for it. The job has a time limit and prints the stack of a hanging test; a test that cannot hold there is skipped with its reason written in the test and named in the commit message (`CONSTRAINTS.md` asks for it there, and the floor guard flags every new skip).
   *Why: the first Windows runs found three product bugs that were green on Linux and macOS (child processes waiting on an inherited stdin, a date format Windows does not know, backslashes in paths for a Linux host), and a test helper that hung on a full pipe.*
 - **Containers for install and remove, a VM for system services.** A clean container per target distribution checks that a package installs, runs and leaves nothing behind. Anything that talks to system services (polkit, PackageKit, the session bus) is checked in a VM, because a container without systemd answers differently.
-  *Why: Stickler's `.deb` passed its containers, then failed to uninstall in an Ubuntu VM (PackageKit refused without the interactive hint); in a container without systemd, PackageKit had returned an empty list instead.*
+  *Why: Stickler's `.deb` passed its container tests, then its uninstall failed in an Ubuntu VM: polkit refused at once, because the request lacked the interactive hint. And in a Fedora container without systemd, PackageKit listed no installed package after a reinstall; in a Fedora VM it did.*
 - **Try the risky thing first** when a failure would change the design (a sandbox, a platform limit, a dependency that may not run): a short spike before the module that depends on it. Number its questions; a driver measures and writes a log; every answer goes into the spec with its evidence (run numbers, log lines). **A spike runs twice: on a CI runner and on the owner's own device**, with exact steps for the owner and the log sent back.
-  *Why: Stickler's Windows spike passed every step on the runner; on the owner's PC a policy refuses to start the unsigned launcher every environment uses.*
+  *Why: Stickler's Windows spike passed every step on the runner, but on the owner's PC a policy had already refused to start uv's unsigned `python.exe`, the launcher every model environment uses; the runner has no such policy.*
 - **Validate on the target data**, not only on a convenient proxy.
   *Why: four tuning methods improved the public benchmark and all of them made the owner's own data worse.*
 
@@ -96,7 +96,7 @@ Tasks follow `planning-and-task-breakdown` (acceptance, verify command, dependen
   *Why: a download bar measured by free disk space showed "78 of 78 MB" halfway through.*
 - **Keep logic free of the UI toolkit**, enforced by a test; coverage then applies to the logic and the UI layer stays thin.
 - **One rule in one place.** Whatever decides behaviour (which actions a state allows, what a removal deletes) lives once, in the core, with a test that every interface uses it. Before a module that adds a second consumer of the core, let a graphify graph look for copies.
-  *Why: in Stickler the rule for which buttons each state enables lived in the GTK window, in the bridge for the Mac app and in the controller, until a graphify graph showed the three copies (task 125).*
+  *Why: in Stickler the rule for which actions each state allows lived in the GTK window and again in the bridge for the Mac app, until a graphify graph showed the two copies; merging them turned up a third in the window (task 125).*
 - **If results are cached under a hash of the code**, let the hash ignore comments and formatting from the start, and have a tool to re-key after edits that do not change behaviour (never after a real change).
   *Why: without it, translating comments would have thrown away hours of computed results.*
 
@@ -116,7 +116,7 @@ Owner's rule: **the most capable model available orchestrates** (as of 2026-11: 
 ## Release
 
 - **Version numbers per the principle** *Release numbering* (plain integers, +1 per release, every release counts, fixes included; Stickler, ADR 0006): the SemVer bump rules of `git-workflow-and-versioning` and its "breaking → major" check do not apply; its commit, changelog and tagging practices still do. A CI step should fail if the tag and the version in the code differ.
-- **`main` is green before every tag, and checked at the start of every session** (`gh run list --branch main --limit 1`). A red `main` is the first task, before anything else.
+- **`main` is green before every tag, and checked at the start of every session** (`gh run list --branch main --limit 1`). A red `main` is the first task.
   *Why: Stickler's `main` was red for two days (gettext missing in CI) and was found only when release 9 was tagged.*
 - **Keep a written release checklist that grows with the product.** It holds the few mechanical steps (security alerts, version bump, release commit, tag, attached artefacts, metadata, docs check, regenerated README figures) and, above all, **the most important features to try by hand** before the tag. It does not need to be numbered; it needs to be current. When a release adds a feature that matters, add a line.
   *Why: the owner's hand checks at each checkpoint found what tests did not; the list makes that repeatable at every release.*
@@ -135,8 +135,8 @@ Every text a person reads goes through the `clarity` skill (owner, 2026-11-16): 
 Keep decoration modest: a few badges that state facts are enough.
 *Why: the owner removed six badges again.*
 
-**Website and features.** The same look at successful projects of the same kind before a website or a feature is specified: what they offer, how they lay it out, what users of that kind expect. Name each project with its licence, say what to take and what not, and let the owner say yes before it goes into a spec.
-*Why: Stickler's download cards, its scrolling "how it works" story and its backup came from TuxTalk, its test icon for builds from blueprint, each with the owner's yes.*
+**Website and features.** Before a website or a feature is specified, look the same way at successful projects of the same kind: what they offer, how they lay it out, what users of that kind expect. Name each project with its licence, say what to take and what not, and let the owner say yes before it goes into a spec.
+*Why: Stickler's download cards, its scrolling "how it works" story and its backup came from TuxTalk, each with the owner's yes; the idea of a test icon for builds came from blueprint and waits as an idea for later.*
 
 ## Overrides of the agent-skills
 

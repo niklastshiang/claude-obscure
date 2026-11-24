@@ -23,6 +23,8 @@ jobs:
       run:
         shell: bash # check.sh is bash on every system, Git Bash on Windows
     steps:
+      - name: Files as they are in the repository (no CRLF on Windows, or bash fails on check.sh)
+        run: git config --global core.autocrlf false
       - uses: actions/checkout@{{CHECKOUT_SHA}} # {{CHECKOUT_VERSION}}
         with:
           fetch-depth: 0 # the floor guard compares against the state before the push

@@ -80,7 +80,13 @@ The stack part is not a template: versions and tools change too fast. Work throu
 3. **Tests** with the stack's usual framework, and one real test from day 1: the version check from `CONSTRAINTS.md` (an integer, the same everywhere). The task tier must run something real.
 4. **Coverage** tool and threshold. The threshold is a decision for step 3; recommend the default of `constraint-driven-development` unless the owner has a number.
 5. **Floor guard,** ported from the reference in `agent-skills/constraint-driven-development/references/floor-guard.md` (read it from the installed agent-skills plugin) into a language the project already needs, with this stack's suppression comments, test skips and stub patterns. Keep the reference's contract: exit 0 clean, 1 violation, 2 could not run; never print a secret's value.
-6. **CI setup:** the steps that install the toolchain in CI at the same versions; one job per operating system from step 3 decision 1, each running the full test suite from the first commit, not only the system Claude works on, with a time limit per job (`{{CI_OS_RUNNERS}}` and `{{CI_TIMEOUT_MINUTES}}` in the CI template; why: `house-rules`, *Definition of Done*); the newest generally available runner image for each; `actions/checkout` and every other action pinned to a full commit sha looked up today, with the version in a comment; the current gitleaks release.
+6. **CI setup:**
+   - Steps that install the toolchain in CI at the same versions (`{{CI_SETUP_STEPS}}`). They work on every runner of the matrix, with `if: runner.os == …` where they differ.
+   - One job per operating system from step 3 decision 1, each running the full test suite from the first commit, not only the system Claude works on, with a time limit per job (`{{CI_OS_RUNNERS}}` and `{{CI_TIMEOUT_MINUTES}}` in the CI template; why: `house-rules`, *Definition of Done*). A hanging test prints its stack where the test framework can (e.g. pytest's `faulthandler_timeout`).
+   - A system without a runner of its own (Android, iOS) runs its tests on the runner its emulator or simulator needs.
+   - The newest generally available runner image for each job.
+   - The secrets job stays on a Linux runner (`{{CI_RUNNER}}`), as gitleaks is fetched for Linux; the current gitleaks release.
+   - `actions/checkout` and every other action pinned to a full commit sha looked up today, with the version in a comment.
 7. **`.gitignore`** for build output, caches and the binaries named in `CONSTRAINTS.md`.
 8. **Version** set to `0` in every place the stack keeps one (principle *Release numbering*).
 9. **Licence text** from its official source into `LICENSE`.
@@ -101,7 +107,7 @@ Run these, in order, and report each result:
 2. `git ls-files -co --exclude-standard -z | xargs -0 grep -IlE '\{\{[A-Z0-9_]+\}\}' --` prints nothing.
 3. `scripts/check.sh task` is green, with its time measured against the budget. If it is red, fix the cause; never weaken a check to get the first commit green (principle *Quality bar*). If a tool is missing, go back to 4.1.
 4. `ls docs/adr` shows one ADR per decision from step 3 and per deviation from step 2.
-5. Ask the owner once for this computer's short name (e.g. `linux`), then `python3 scripts/ai_usage.py --record <name>`; `docs/usage/<name>.json` goes into the first commit.
+5. Ask the owner once for this computer's short name (e.g. `linux`), then `python3 scripts/ai_usage.py --record <name>` (`py -3` instead of `python3` on Windows); `docs/usage/<name>.json` goes into the first commit.
 6. Commit everything as "Day 1: decisions and scaffold" through the hook (never `--no-verify`), and confirm from the output that the hook ran the task tier.
 7. Offer to create the GitHub repository with the decided visibility (`gh repo create`) and push. Do it only after the owner says yes.
 
