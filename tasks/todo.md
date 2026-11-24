@@ -186,14 +186,16 @@ Spec: `SPEC-stickler-lessons-2.md` (approved by the owner, 2026-11-24). Every ne
 
 ## Task 13: `principles.md`
 
+Done 2026-11-24: the row *More than one OS* (12 rows now, the check counts it); *How it was made* records per device, *Hook in every clone* is enforced (its enforcement is built in task 15); the closing note names the framework as part of the stack decision. No framework named (`grep -iE 'flutter|tauri|qt|electron|avalonia|compose|maui|react native'` finds nothing).
+
 **Description:** Add the row *More than one OS* as the spec words it (owner, 2026-11-24). Change *How it was made* (figures per device in `docs/usage/<device>.json`, the README shows the sum) and *Hook in every clone* (enforced by `check.sh task`), each with its *Why*.
 
 **Acceptance criteria:**
-- [ ] The new row names no framework
-- [ ] Each changed row keeps its old date and adds the new one
+- [x] The new row names no framework
+- [x] Each changed row keeps its old date and adds the new one
 
 **Verification:**
-- [ ] `scripts/check.sh` green (the principles check covers the new row)
+- [x] `scripts/check.sh` green (the principles check covers the new row)
 
 **Dependencies:** None (Q3 answered: desktop and mobile alike, owner 2026-11-24)
 
