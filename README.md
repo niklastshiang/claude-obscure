@@ -45,7 +45,7 @@ recommendation, records each one, and builds a scaffold whose checks hold from t
 
 The rules come from building [Stickler](https://github.com/niklastshiang/stickler), a drum
 transcriber that grew from a command-line benchmark into desktop apps for Linux and the Mac over
-nine releases. Most rules carry a one-line *Why* with what happened there.
+nine releases, then began a Windows app. Most rules carry a one-line *Why* with what happened there.
 
 ---
 
@@ -179,10 +179,8 @@ them again: [`skills/lets-a-go/principles.md`](skills/lets-a-go/principles.md).
 
 ## `> ROADMAP`
 
-- **Now:** what Stickler's releases 8 to 10 and its Windows start taught
-  ([spec](SPEC-stickler-lessons-2.md), approved 2026-11-24), among it a new principle: a program
-  for more than one operating system gets one cross-platform framework.
-- **Next:** dry runs of `lets-a-go` on real stacks and in adopt mode, then release 1.
+- **Now:** dry runs of `lets-a-go` on real stacks and in adopt mode.
+- **Next:** release 1.
 
 <details>
 <summary><b>Done</b></summary>
@@ -193,6 +191,10 @@ them again: [`skills/lets-a-go/principles.md`](skills/lets-a-go/principles.md).
 - 2026-11-18: `lets-a-go` with principles, ADRs and the scaffold's templates; graphify; the
   repository renamed to claude-obscure
 - 2026-11-24: Claude Code's usage recorded per device; this README
+- 2026-11-24: what Stickler's releases 8 to 10 and its Windows start taught
+  ([spec](SPEC-stickler-lessons-2.md)): a new principle, a program for more than one operating
+  system gets one cross-platform framework; CI on every system; an intent before a spec; the
+  pre-commit hook enforced; the usage script in every new project
 
 </details>
 
@@ -226,7 +228,7 @@ in.
 </details>
 
 <details>
-<summary><b>What the AI cost</b>: about 13 USD at API prices, as of 2026-11-24</summary>
+<summary><b>What the AI cost</b>: about 18 USD at API prices, as of 2026-11-24</summary>
 
 Claude Code logs the tokens of every response;
 [`scripts/ai_usage.py`](scripts/ai_usage.py) sums them and prices them with Anthropic's
@@ -236,10 +238,10 @@ On a subscription the real cost differs; this is what the same work would cost o
 
 | Period | Model | Responses | Output tokens | Cache read | API cost |
 |---|---|---:|---:|---:|---:|
-| 17–24 Nov 2026 | Claude Opus 5.5 (the work; Linux) | 190 | 0.20 M | 22 M | 13.11 USD |
+| 17–24 Nov 2026 | Claude Opus 5.5 (the work; Linux) | 253 | 0.26 M | 34 M | 18.30 USD |
 | 17 Nov 2026 | Claude Sonnet 5.5 (helpers; Linux) | 5 | 0.002 M | 0.09 M | 0.17 USD |
 | 17–24 Nov 2026 | Claude Haiku 5.5 (helpers; Linux) | 6 | 0.01 M | 0.07 M | 0.02 USD |
-| | **Total** (23 M tokens, about 1.6 hours active) | | | | **about 13 USD** |
+| | **Total** (35 M tokens, about 2 hours active) | | | | **about 18 USD** |
 
 What is missing: the first day (16 November), worked in cloud sessions on claude.ai/code whose
 logs are not on this computer.
