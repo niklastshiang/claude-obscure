@@ -50,7 +50,7 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] Task 13: `principles.md`: *More than one OS*, *How it was made* per device, *Hook in every clone* enforced
 - [x] Task 14: `lets-a-go` step 3 and the recipe: frameworks for more than one system, CI on every system
 - [x] Task 15: Templates: intent, the hook check in `check.sh`, the usage line and `ai_usage.py`; `check_repo.py` requires them
-- [ ] Task 16: `house-rules`, lessons 1–5 (intent, a new system's CI first, child processes, containers and VMs, the spike twice)
+- [x] Task 16: `house-rules`, lessons 1–5 (intent, a new system's CI first, child processes, containers and VMs, the spike twice)
 - [ ] Task 17: `house-rules`, lessons 6–9 (subagents' diffs, one rule in one place, `main` green, comparable projects) and the overview
 - [ ] Task 18: Fresh-context review of 13–17 against the spec; `clarity` once
 

@@ -249,14 +249,16 @@ Done 2026-11-24: `templates/docs/intent/0000-template.md` (fields as in the spec
 
 ## Task 16: `house-rules`, lessons 1–5
 
+Done 2026-11-24: intent before spec (*Decisions Belong to the Owner*); the spike numbered, logged and run twice (extends *Try the risky thing first*); a new system's suite in CI first and containers versus VMs (*Definition of Done*); child processes with stdin, encoding and line endings named (extends the clean-environment rule). Four red flags, two verification lines. Each *Why* from `tasks/todo.md` of Stickler (`origin/claude/win-core`, tasks 141, 160, 161, 167, 172 and `docs/intent/windows-app.md`).
+
 **Description:** Intent before spec (*Decisions Belong to the Owner*); a new system's test suite in CI first, containers for install and remove and a VM for system services, the spike on a runner and on the owner's device (*Definition of Done*); child processes fully specified (*Checks and Tests That Do Not Lie*). Extend existing rules where the spec says so instead of adding near-copies.
 
 **Acceptance criteria:**
-- [ ] Each lesson has its one-line *Why* with the evidence from the spec
-- [ ] *Red Flags* and *Verification* gain a line where a lesson can be checked
+- [x] Each lesson has its one-line *Why* with the evidence from the spec
+- [x] *Red Flags* and *Verification* gain a line where a lesson can be checked
 
 **Verification:**
-- [ ] `scripts/check.sh` green
+- [x] `scripts/check.sh` green
 
 **Dependencies:** Task 15 (the intent template is linked)
 

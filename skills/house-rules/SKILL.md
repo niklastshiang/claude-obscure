@@ -54,6 +54,8 @@ Every project starts with `/kickoff:lets-a-go`: it shows the owner's principles 
   *Why: in Stickler every product choice went this way, and none had to be reverted because the owner had not seen it coming.*
 - **Record every decision where it applies**, tagged `(owner, YYYY-MM-DD)`: in the spec, in the task list, and in the commit subject when a change was the owner's wish (`… (owner)`). Lasting decisions get an ADR (`documentation-and-adrs`). Mark superseded parts as superseded, don't delete them.
   *Why: six releases later, every "why is it like this?" was answerable from the spec and the ADRs.*
+- **Intent before spec.** A large feature starts with an interview (`interview-me`). Its result goes into `docs/intent/<feature>.md` (template from `lets-a-go`: outcome, user, first version, afterwards, distribution, success, out of scope, open), and the owner confirms it before the spec is written.
+  *Why: in Stickler the website and the Windows app both started this way; the Windows interview corrected the first version's scope before a line of spec was written ("the Mac app had no playback at release 8").*
 - **Spec first, module by module.** Big features become a capability map of modules (`spec-driven-development`). Each module is specified, approved by the owner, built, and closed with a checkpoint, in a stated build order. When a decision changes, change the spec first.
 - **Note what you find outside the task instead of fixing it silently**: a short "Found on the way" or "Noticed, not changed" line in the task's done note. The owner decides whether it becomes a task.
   *Why: a note that Ctrl+C did not reach a child process became its own task, at the owner's call.*
@@ -71,7 +73,12 @@ Tasks follow `planning-and-task-breakdown` (acceptance, verify command, dependen
     *Why: nearly every checkpoint found bugs that all tests had passed: a data file missing from the installed package, translations missing from one package format, a spinner that stuttered, a removal that also deleted shipped files, a progress bar that overshot, numbers formatted by the locale.*
 - **Build and run the real, installed artefact early**, not in the last module.
   *Why: the first run of the installed package failed on a file that only existed in the development checkout.*
-- **Try the risky thing first** when a failure would change the design (a sandbox, a platform limit, a dependency that may not run): a short spike before the module that depends on it.
+- **A new operating system gets the whole test suite in CI first**, before any interface code for it. The job has a time limit and prints the stack of a hanging test; a test that cannot hold there is skipped with its reason written in the test.
+  *Why: the first Windows runs found three product bugs that were green on Linux and macOS (child processes waiting on an inherited stdin, a date format Windows does not know, backslashes in paths for a Linux host), and a test helper that hung on a full pipe.*
+- **Containers for install and remove, a VM for system services.** A clean container per target distribution checks that a package installs, runs and leaves nothing behind. Anything that talks to system services (polkit, PackageKit, the session bus) is checked in a VM, because a container without systemd answers differently.
+  *Why: Stickler's `.deb` passed its containers, then failed to uninstall in an Ubuntu VM (PackageKit refused without the interactive hint); in a container without systemd, PackageKit had returned an empty list instead.*
+- **Try the risky thing first** when a failure would change the design (a sandbox, a platform limit, a dependency that may not run): a short spike before the module that depends on it. Number its questions; a driver measures and writes a log; every answer goes into the spec with its evidence (run numbers, log lines). **A spike runs twice: on a CI runner and on the owner's own device**, with exact steps for the owner and the log sent back.
+  *Why: Stickler's Windows spike passed every step on the runner; on the owner's PC a policy refuses to start the unsigned launcher every environment uses.*
 - **Validate on the target data**, not only on a convenient proxy.
   *Why: four tuning methods improved the public benchmark and all of them made the owner's own data worse.*
 
@@ -79,8 +86,8 @@ Tasks follow `planning-and-task-breakdown` (acceptance, verify command, dependen
 
 - **Tests never touch the user's real session, files or services.** Point per-user folders at a temporary directory, and isolate or fake desktop and session services.
   *Why: a test meant to be headless unmounted a service in the owner's real desktop session.*
-- **Child processes get a clean environment**: drop the parent's tool-specific variables, and fix the locale of every tool whose output is parsed (e.g. `LC_ALL=C`).
-  *Why: inherited variables made child tools run on the wrong interpreter (22 failing tests); a non-English locale broke number parsing twice.*
+- **Child processes get a clean environment and nothing left implicit**: drop the parent's tool-specific variables; fix the locale of every tool whose output is parsed (e.g. `LC_ALL=C`); close `stdin` unless the child needs it; name the encoding when reading another program's output, with a replacement for bad bytes; name the line endings of a protocol. In Python, run the tests once with `PYTHONWARNDEFAULTENCODING=1 -W error::EncodingWarning`.
+  *Why: inherited variables made child tools run on the wrong interpreter (22 failing tests); a non-English locale broke number parsing twice; on Windows the core's children waited on the inherited stdin, so no analysis ended, and implicit encodings sat in 53 files.*
 - **Expect test environments to differ** (containers, CI, another OS). When a test fails only there, find the cause before touching the test; change the test only when the cause is the environment, and say so in the commit.
   *Why: in a cloud container killed processes stayed zombies, so five correct tests reported them as alive.*
 - **Review auto-filled tool output** (translations pre-filled by merge tools, generated configs, suggested fixes) entry by entry.
@@ -155,7 +162,10 @@ Keep decoration modest: a few badges that state facts are enough.
 - Unticked boxes for work that already shipped
 - A subagent's result used without a single spot-check, or a secret in a subagent's brief
 - Tests that read or write the real user's home, session or services
-- Parsing a tool's output without fixing its locale
+- Parsing a tool's output without fixing its locale, or a child process with an open stdin or an implicit encoding
+- Interface code for a new operating system before its test suite runs there in CI
+- A spike judged on the runner alone, or an uninstall through system services checked only in a container
+- A spec for a large feature with no intent the owner confirmed
 - A release without the hand-tried feature list, or a README number that no script produced
 
 ## Verification
@@ -165,6 +175,8 @@ Keep decoration modest: a few badges that state facts are enough.
 - [ ] Every user-visible choice since the last release was offered as options with a recommendation, and is recorded with its date
 - [ ] Every finished task has a measured done note and a ticked box
 - [ ] Every module that meets the real environment had a checkpoint in the real program
+- [ ] Every operating system the project ships for runs the full test suite in CI
+- [ ] Every large feature since the last release has a confirmed intent in `docs/intent/`
 - [ ] Every subagent result that was used was spot-checked
 - [ ] The release checklist lists the current key features, and they were tried
 - [ ] README figures were regenerated, and the README was compared with successful projects of its kind
