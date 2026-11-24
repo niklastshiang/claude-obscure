@@ -46,7 +46,7 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [x] `scripts/check.sh` green
 - [x] Owner reads `principles.md` and `skills/lets-a-go/SKILL.md`
 
-### Phase 2b: Lessons from Stickler, part 2 (draft, 2026-11-24; spec `SPEC-stickler-lessons-2.md`)
+### Phase 2b: Lessons from Stickler, part 2 (approved 2026-11-24; spec `SPEC-stickler-lessons-2.md`)
 - [ ] Task 13: `principles.md`: *More than one OS*, *How it was made* per device, *Hook in every clone* enforced
 - [ ] Task 14: `lets-a-go` step 3 and the recipe: frameworks for more than one system, CI on every system
 - [ ] Task 15: Templates: intent, the hook check in `check.sh`, the usage line and `ai_usage.py`; `check_repo.py` requires them

@@ -1,0 +1,69 @@
+{
+  "device": "linux",
+  "days": {
+    "2026-11-17": {
+      "active_minutes": 59,
+      "models": {
+        "claude-haiku-5-5": {
+          "responses": 1,
+          "input": 2,
+          "output": 25,
+          "cache_read": 9002,
+          "cache_write": 14651
+        },
+        "claude-opus-5-5": {
+          "responses": 111,
+          "input": 278,
+          "output": 120045,
+          "cache_read": 12741646,
+          "cache_write": 273233
+        },
+        "claude-sonnet-5-5": {
+          "responses": 5,
+          "input": 10,
+          "output": 2195,
+          "cache_read": 94471,
+          "cache_write": 35001
+        }
+      }
+    },
+    "2026-11-18": {
+      "active_minutes": 18,
+      "models": {
+        "claude-haiku-5-5": {
+          "responses": 2,
+          "input": 4,
+          "output": 202,
+          "cache_read": 18320,
+          "cache_write": 31549
+        },
+        "claude-opus-5-5": {
+          "responses": 33,
+          "input": 72,
+          "output": 25919,
+          "cache_read": 2406973,
+          "cache_write": 71725
+        }
+      }
+    },
+    "2026-11-24": {
+      "active_minutes": 18,
+      "models": {
+        "claude-haiku-5-5": {
+          "responses": 3,
+          "input": 8,
+          "output": 10504,
+          "cache_read": 44432,
+          "cache_write": 47344
+        },
+        "claude-opus-5-5": {
+          "responses": 46,
+          "input": 102,
+          "output": 55869,
+          "cache_read": 7034478,
+          "cache_write": 234469
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Spec: Lessons from Stickler, part 2
 
-Status: draft; the owner answered two of three questions (2026-11-24), the third does not block Phase 2b. Plan and tasks: `tasks/plan.md`, Phase 2b.
+Status: approved by the owner (2026-11-24). The app for dry run 2 is still open; it does not block Phase 2b. Plan and tasks: `tasks/plan.md`, Phase 2b.
 
 ## Objective
 

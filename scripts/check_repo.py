@@ -6,6 +6,7 @@
 - every skill is listed in the README's table
 - every core template of lets-a-go exists
 - every row of skills/lets-a-go/principles.md has a topic, a rule and a "Decided" entry
+- scripts/ai_usage.py is the same file as lets-a-go's template, so the two do not drift
 """
 import json
 import pathlib
@@ -56,10 +57,15 @@ for skill in sorted((ROOT / "skills").iterdir()):
         errors.append(f"{skill.name}: not listed in README.md")
 
 TEMPLATES = ["CLAUDE.md", "CONSTRAINTS.md", "scripts/check.sh", ".githooks/pre-commit",
-             ".github/workflows/check.yml", "docs/adr/0000-template.md"]
+             ".github/workflows/check.yml", "docs/adr/0000-template.md", "scripts/ai_usage.py"]
 for t in TEMPLATES:
     if not (ROOT / "skills/lets-a-go/templates" / t).is_file():
         errors.append(f"lets-a-go: template {t} is missing")
+
+usage = ROOT / "scripts/ai_usage.py"
+template = ROOT / "skills/lets-a-go/templates/scripts/ai_usage.py"
+if usage.is_file() and template.is_file() and usage.read_bytes() != template.read_bytes():
+    errors.append("scripts/ai_usage.py differs from lets-a-go's template; change both together")
 
 principles = ROOT / "skills/lets-a-go/principles.md"
 rows = 0

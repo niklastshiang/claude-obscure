@@ -24,6 +24,12 @@ for this repository:
 - Facts about outside projects (licence, last commit, maintenance) come from the web on the
   day they are written down, with that date.
 - Secrets: none belong in this repository.
+- Usage per device (owner, 2026-11-24): every computer that works here records its Claude Code
+  tokens and active time at the end of a session that commits and before a release:
+  `python3 scripts/ai_usage.py --record <device>` (a short name of one's own, never the host's;
+  this Linux computer is `linux`), and `docs/usage/<device>.json` goes into that commit. A session
+  started in another folder counts with `--log <its .jsonl>`. Then `python3 scripts/badges.py`
+  and the README's table under ORIGIN (`--summary`).
 
 ## Checks
 

@@ -182,7 +182,7 @@ Plan: `tasks/plan.md`. Spec: `SPEC-lets-a-go.md`. Every task ends with `scripts/
 
 ## Phase 2b: Lessons from Stickler, part 2
 
-Spec: `SPEC-stickler-lessons-2.md` (draft, 2026-11-24). Every new rule carries its *Why* with the evidence the spec names.
+Spec: `SPEC-stickler-lessons-2.md` (approved by the owner, 2026-11-24). Every new rule carries its *Why* with the evidence the spec names.
 
 ## Task 13: `principles.md`
 
@@ -234,6 +234,12 @@ Spec: `SPEC-stickler-lessons-2.md` (draft, 2026-11-24). Every new rule carries i
 **Files likely touched:** `skills/lets-a-go/templates/docs/intent/0000-template.md`, `skills/lets-a-go/templates/scripts/check.sh`, `skills/lets-a-go/templates/CLAUDE.md`, `skills/lets-a-go/templates/scripts/ai_usage.py`, `scripts/check_repo.py`, `skills/lets-a-go/SKILL.md`
 
 **Estimated scope:** M
+
+**Ahead of the task (2026-11-24, for the README):** `templates/scripts/ai_usage.py` is written (Stickler's script without its name; prices checked 2026-11-24 with Sonnet and Haiku 5.5 and Haiku's long-prompt prices; `--project` and `--log` for logs from earlier paths and other folders; a recorded day shrinks no more) and copied to `scripts/ai_usage.py`; `check_repo.py` requires the template and that both files are the same. Left for this task: the intent template, the hook check, the usage line in `templates/CLAUDE.md`.
+
+## README like Stickler's (owner, 2026-11-24)
+
+- [x] Done 2026-11-24 (owner: "passt so"): Stickler's layout (title in `<code>`, badges by `scripts/badges.py` from shieldcn, `> SECTION` headings, details blocks, ORIGIN with the AI cost per device, SUPPORT MY WORK), the content of the old README kept (install, TokenEconomizer, graphify, cloud, removing, pins, layout, licences). Compared before with addyosmani/agent-skills, obra/superpowers and anthropics/skills (2026-11-24): install commands high, the workflow as a numbered list before the details, each skill linked to its `SKILL.md`. Title, tagline and the closing line approved by the owner.
 
 ## Task 16: `house-rules`, lessons 1–5
 
