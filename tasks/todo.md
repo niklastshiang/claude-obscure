@@ -205,14 +205,16 @@ Done 2026-11-24: the row *More than one OS* (12 rows now, the check counts it); 
 
 ## Task 14: `lets-a-go` step 3 and the recipe
 
+Done 2026-11-24: decision 2 offers frameworks only for more than one system with a user interface, weighed by the spec's six criteria; a native app per system is a deviation with an ADR. Recipe item 6 and the CI template: a matrix with one job per system, the full suite from the first commit, `timeout-minutes`, bash on every system (`{{CI_OS_RUNNERS}}`, `{{CI_TIMEOUT_MINUTES}}`); the secrets job stays on Linux. No framework named.
+
 **Description:** Step 3, decision 2: when decision 1 names more than one operating system, offer frameworks only, weighed by the criteria of the spec. Recipe 4.2, item 6: CI runs the full test suite on every decided system from the first commit, each job with a time limit.
 
 **Acceptance criteria:**
-- [ ] No stack-specific branch added; no framework named as a default
-- [ ] The *Why* points to the principle, not repeated
+- [x] No stack-specific branch added; no framework named as a default
+- [x] The *Why* points to the principle, not repeated
 
 **Verification:**
-- [ ] `scripts/check.sh` green
+- [x] `scripts/check.sh` green
 
 **Dependencies:** Task 13
 

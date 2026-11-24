@@ -51,6 +51,7 @@ The decisions:
 
 1. **What it is and where it runs:** platforms, how users get it (store, package format, download).
 2. **Stack:** language, UI toolkit, build tool. Prefer what is actively maintained and fits the platforms from 1.
+   If decision 1 names more than one operating system and the program has a user interface, offer cross-platform frameworks only (principle *More than one OS*); a native app per system is a deviation and needs an ADR. Weigh each framework by: official support for every system from 1, active maintenance, logic that can be tested without a screen, packaging for each system's channel from 1, accessibility, and its licence.
 3. **Versions:** for each component, the newest stable release that every core dependency supports (principle *Runtime versions*). Name the release date and where support was confirmed.
 4. **Licence** of the project, checked against the licences of the core dependencies and any assets, data or models it ships.
    *Why: in Stickler, "MIT stays" was decided on day 3 and replaced by GPL on day 5; the licence file, package metadata, citation file, About dialog, README and contribution guide all had to change.*
@@ -79,7 +80,7 @@ The stack part is not a template: versions and tools change too fast. Work throu
 3. **Tests** with the stack's usual framework, and one real test from day 1: the version check from `CONSTRAINTS.md` (an integer, the same everywhere). The task tier must run something real.
 4. **Coverage** tool and threshold. The threshold is a decision for step 3; recommend the default of `constraint-driven-development` unless the owner has a number.
 5. **Floor guard,** ported from the reference in `agent-skills/constraint-driven-development/references/floor-guard.md` (read it from the installed agent-skills plugin) into a language the project already needs, with this stack's suppression comments, test skips and stub patterns. Keep the reference's contract: exit 0 clean, 1 violation, 2 could not run; never print a secret's value.
-6. **CI setup:** the steps that install the toolchain in CI at the same versions; the newest generally available runner image; `actions/checkout` and every other action pinned to a full commit sha looked up today, with the version in a comment; the current gitleaks release.
+6. **CI setup:** the steps that install the toolchain in CI at the same versions; one job per operating system from step 3 decision 1, each running the full test suite from the first commit, not only the system Claude works on, with a time limit per job (`{{CI_OS_RUNNERS}}` and `{{CI_TIMEOUT_MINUTES}}` in the CI template; why: `house-rules`, *Definition of Done*); the newest generally available runner image for each; `actions/checkout` and every other action pinned to a full commit sha looked up today, with the version in a comment; the current gitleaks release.
 7. **`.gitignore`** for build output, caches and the binaries named in `CONSTRAINTS.md`.
 8. **Version** set to `0` in every place the stack keeps one (principle *Release numbering*).
 9. **Licence text** from its official source into `LICENSE`.

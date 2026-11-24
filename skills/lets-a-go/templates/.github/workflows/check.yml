@@ -11,7 +11,17 @@ permissions:
 
 jobs:
   check:
-    runs-on: {{CI_RUNNER}}
+    # One job per operating system the project runs on (lets-a-go, step 3 decision 1), each with
+    # the full test suite from the first commit and a time limit, so a hanging test fails the job.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: {{CI_OS_RUNNERS}} # e.g. [ubuntu-…, macos-…, windows-…], the newest of each
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: {{CI_TIMEOUT_MINUTES}}
+    defaults:
+      run:
+        shell: bash # check.sh is bash on every system, Git Bash on Windows
     steps:
       - uses: actions/checkout@{{CHECKOUT_SHA}} # {{CHECKOUT_VERSION}}
         with:
