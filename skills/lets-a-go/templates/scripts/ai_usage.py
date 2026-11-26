@@ -60,15 +60,22 @@ DEVICE = re.compile(r"[a-z0-9][a-z0-9-]{0,23}")
 FIELDS = ("responses", "input", "output", "cache_read", "cache_write")
 
 
-def log_folder(project: Path = ROOT) -> Path:
-    """Claude Code names a project's log folder after its path, every other character as '-'."""
-    return PROJECTS / re.sub(r"[^A-Za-z0-9]", "-", str(project))
+def log_folders(project: Path = ROOT) -> list[Path]:
+    """The log folders of a checkout and of every worktree under its `.claude/worktrees`,
+    whichever of them `project` is. Claude Code names a project's log folder after its path,
+    every character but letters and digits as '-' (`/x/.claude/worktrees/y` is
+    `-x--claude-worktrees-y`). A record replaces whole days, so it reads the sessions of all
+    of them, not only the one it runs in."""
+    if project.parent.name == "worktrees" and project.parent.parent.name == ".claude":
+        project = project.parents[2]
+    name = re.sub(r"[^A-Za-z0-9]", "-", str(project))
+    return [PROJECTS / name, *sorted(PROJECTS.glob(f"{name}--claude-worktrees-*"))]
 
 
 def sources(projects: list[Path], logs: list[Path]) -> list[Path]:
-    """The log folders of this project and its earlier paths, and single session logs with
-    their subagents' folder."""
-    found = [log_folder()] + [log_folder(p) for p in projects]
+    """The log folders of this project, its worktrees and its earlier paths, and single
+    session logs with their subagents' folder."""
+    found = log_folders() + [folder for p in projects for folder in log_folders(p)]
     for log in logs:
         found.append(log)
         found.append(log.with_suffix(""))  # <session>/subagents/*.jsonl

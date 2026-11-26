@@ -58,7 +58,7 @@ for skill in sorted((ROOT / "skills").iterdir()):
 
 TEMPLATES = ["CLAUDE.md", "CONSTRAINTS.md", "scripts/check.sh", ".githooks/pre-commit",
              ".github/workflows/check.yml", "docs/adr/0000-template.md", "scripts/ai_usage.py",
-             "docs/intent/0000-template.md"]
+             "docs/intent/0000-template.md", "docs/lessons.md"]
 for t in TEMPLATES:
     if not (ROOT / "skills/lets-a-go/templates" / t).is_file():
         errors.append(f"lets-a-go: template {t} is missing")

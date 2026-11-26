@@ -195,6 +195,11 @@ them again: [`skills/lets-a-go/principles.md`](skills/lets-a-go/principles.md).
   ([spec](SPEC-stickler-lessons-2.md)): a new principle, a program for more than one operating
   system gets one cross-platform framework; CI on every system; an intent before a spec; the
   pre-commit hook enforced; the usage script in every new project
+- 2026-11-26: what Stickler's Mac and Windows work since then taught, and what two projects on
+  one framework each show, Readest and Mornye ([spec](SPEC-lessons-3.md)): rules for work on
+  several computers and branches, checks that say why they are red, CI that installs and starts
+  what users get, and a lessons file in every project, read before each release; Flutter for
+  programs with more than two target systems (owner)
 
 </details>
 
@@ -228,7 +233,7 @@ in.
 </details>
 
 <details>
-<summary><b>What the AI cost</b>: about 18 USD at API prices, as of 2026-11-24</summary>
+<summary><b>What the AI cost</b>: about 26 USD at API prices, as of 2026-11-26</summary>
 
 Claude Code logs the tokens of every response;
 [`scripts/ai_usage.py`](scripts/ai_usage.py) sums them and prices them with Anthropic's
@@ -239,9 +244,10 @@ On a subscription the real cost differs; this is what the same work would cost o
 | Period | Model | Responses | Output tokens | Cache read | API cost |
 |---|---|---:|---:|---:|---:|
 | 17–24 Nov 2026 | Claude Opus 5.5 (the work; Linux) | 253 | 0.26 M | 34 M | 18.30 USD |
-| 17 Nov 2026 | Claude Sonnet 5.5 (helpers; Linux) | 5 | 0.002 M | 0.09 M | 0.17 USD |
+| 26 Nov 2026 | Claude Fable 5.2 (the work; Linux) | 35 | 0.06 M | 4.9 M | 5.89 USD |
+| 17–26 Nov 2026 | Claude Sonnet 5.5 (helpers; Linux) | 43 | 0.03 M | 2.2 M | 1.36 USD |
 | 17–24 Nov 2026 | Claude Haiku 5.5 (helpers; Linux) | 6 | 0.01 M | 0.07 M | 0.02 USD |
-| | **Total** (35 M tokens, about 2 hours active) | | | | **about 18 USD** |
+| | **Total** (43 M tokens, about 2.3 hours active) | | | | **about 26 USD** |
 
 What is missing: the first day (16 November), worked in cloud sessions on claude.ai/code whose
 logs are not on this computer.

@@ -58,7 +58,22 @@ Rename the plugin to `kickoff` and its rules skill to `house-rules`, add the ski
 - [ ] `scripts/check.sh` green
 - [ ] Owner reads the diff of `principles.md`, `lets-a-go` and `house-rules`
 
-Phase 3 starts after Checkpoint B2, so the dry runs test the changed skills. The app of Task 10 is open: the owner chooses it (2026-11-24).
+### Phase 2c: Lessons, part 3 (approved 2026-11-26; spec `SPEC-lessons-3.md`)
+
+Tasks are named by their module from here on, as the spec's item 2 asks.
+
+- [x] lessons-3-1: `ai_usage.py` reads the worktrees' logs, in both copies
+- [x] lessons-3-2: Templates: `docs/lessons.md`, three lines in `CLAUDE.md`; `check_repo.py` requires the new file
+- [x] lessons-3-3: `lets-a-go`: signing and updates, the engine a framework draws with, versions pinned where the tool reads them
+- [x] lessons-3-4: `house-rules`: items 1–18, the sections *Parallel Work* and *Lessons*, red flags and verification
+- [x] lessons-3-5: Fresh-context review of lessons-3-1 to 3-4 against the spec; `clarity` once
+- [x] lessons-3-6: `principles.md` and `lets-a-go`: Flutter for more than two target systems (owner, 2026-11-26)
+
+### Checkpoint lessons-3
+- [x] `scripts/check.sh` green
+- [ ] Owner reads the diff of `lets-a-go` and `house-rules`
+
+Phase 3 starts after Checkpoint B2 and Checkpoint lessons-3, so the dry runs test the changed skills. The app of Task 10 is open: the owner chooses it (2026-11-24).
 
 ### Phase 3: Proof
 - [ ] Task 9: Dry run GTK/Python

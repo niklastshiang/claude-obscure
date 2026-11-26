@@ -64,6 +64,25 @@
           "cache_write": 449428
         }
       }
+    },
+    "2026-11-26": {
+      "active_minutes": 16,
+      "models": {
+        "claude-fable-5-2": {
+          "responses": 35,
+          "input": 80,
+          "output": 56117,
+          "cache_read": 4858202,
+          "cache_write": 167374
+        },
+        "claude-sonnet-5-5": {
+          "responses": 38,
+          "input": 76,
+          "output": 29907,
+          "cache_read": 2089612,
+          "cache_write": 169282
+        }
+      }
     }
   }
 }

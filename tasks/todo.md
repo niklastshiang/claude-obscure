@@ -305,6 +305,48 @@ Done 2026-11-24: The fresh-context review checked every *Why* against Stickler; 
 - [ ] `scripts/check.sh` green
 - [ ] Owner reads the diff of `principles.md`, `lets-a-go` and `house-rules`
 
+## Phase 2c: Lessons, part 3 (spec `SPEC-lessons-3.md`)
+
+## lessons-3-1: `ai_usage.py` reads the worktrees' logs
+
+Done 2026-11-26: `log_folders()` replaces `log_folder()` in `scripts/ai_usage.py` and its template (the same bytes): it returns the checkout's log folder and every `--claude-worktrees-*` folder beside it, and maps a worktree's path to its checkout. Tried with three made-up log folders (the checkout, one worktree, a neighbour `-x-proj-other`): from the checkout and from the worktree alike it counts 2 responses, 20 input and 10 output tokens; the neighbour is left out. Not run: a record in a real worktree of this repository, which has none.
+
+**Acceptance criteria:**
+- [x] A record made in a worktree counts the checkout's sessions and the worktree's
+- [x] Both copies are the same file (`check_repo.py`)
+
+## lessons-3-2: Templates
+
+Done 2026-11-26: `templates/docs/lessons.md` (written with `<…>`, so it is copied as it is and the placeholder check stays green); `templates/CLAUDE.md` names tasks by module, starts a session with `git fetch` and the look at `main`, and has the lessons line; `lets-a-go` step 4.3 copies the file. `check_repo.py` without the template: `lets-a-go: template docs/lessons.md is missing`, exit 1.
+
+**Acceptance criteria:**
+- [x] `check_repo.py` fails when `templates/docs/lessons.md` is missing (tried once)
+
+## lessons-3-3: `lets-a-go`
+
+Done 2026-11-26: decision 1 asks who signs, what an unsigned artefact meets and how an update arrives, with an update tested at the first release (item 19); decision 2 weighs the engine a framework draws with (item 20); recipe item 1 pins each tool where it reads its version and each fetched file by its hash (item 22). Item 21 changes no rule; the two outside projects are in the *Why* of `house-rules`, *A new operating system gets the whole test suite in CI first*. Every outside fact carries its project and 2026-11-26; the issues and commits named were looked up that day.
+
+## lessons-3-4: `house-rules`
+
+Done 2026-11-26: items 1–4 in the new section *Parallel Work*, 5–7 under *Decisions Belong to the Owner*, 8–11 under *Definition of Done* (9 extends the spike rule), 12–16 under *Checks and Tests That Do Not Lie*, 17 after *One rule in one place*, 18 as the new section *Lessons*; three rationalizations, seven red flags, four verification lines; the overview names the two outside projects. No rule names a language, a framework or an operating system outside its *Why*.
+
+## lessons-3-5: Review
+
+Done 2026-11-26: a fresh-context subagent compared the built text with the spec and checked each *Why* against its commit, issue or file; each finding was checked at the source before it was fixed. Fixed: Mornye's #948 (a finished download showed as failed; nothing says entries were lost); Readest's rule on unrun checks (the rule is quoted, no origin claimed); Readest's #78 dropped (its text does not show a shipped update with an invalid signature) and the guard in its `release.yml` named instead; "the largest class of bugs" is now "keep coming back", without #190; "took several runs" is "more than one run"; the save dialog "by a script"; two claims no source supports removed (a gap "closed on another computer", merges that "needed no correction"); item 22 is recipe item 11 of its own; "two programming languages"; three sentences reworded. Answered, not changed: the reviewer found no guard in Readest's `release.yml`, it is there (lines 686–694, `jq empty`); the start-of-session check stands in *Parallel Work*, *Release* and the `CLAUDE.md` template on purpose, the first two refer to each other. Not run: the `clarity` skill itself; the new lines were read against its checks by the author and by the reviewer.
+
+**Description:** A fresh-context subagent compares lessons-3-1 to 3-4 with the spec and checks every *Why* against its source. Findings checked before they are fixed. Then `clarity` once over every changed text.
+
+**Acceptance criteria:**
+- [x] Every finding fixed or answered in the done note
+
+## lessons-3-6: Flutter for more than two target systems
+
+Done 2026-11-26 (owner: "for projects with more than two target systems we take Flutter"): the row *More than one OS* in `principles.md` names Flutter for more than two operating systems and keeps the choice per project for exactly two; `lets-a-go` step 3, decision 2 says so and researches Flutter's state on the day; the closing note of `principles.md` and the spec's *Decided* follow. `check_repo.py` still counts 12 principles.
+
+## Checkpoint lessons-3
+- [x] `scripts/check.sh` green
+- [ ] Owner reads the diff of `lets-a-go` and `house-rules`
+
 ## Phase 3: Proof
 
 ## Task 9: Dry run GTK/Python
