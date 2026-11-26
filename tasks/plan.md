@@ -67,7 +67,7 @@ Tasks are named by their module from here on, as the spec's item 2 asks.
 - [x] lessons-3-3: `lets-a-go`: signing and updates, the engine a framework draws with, versions pinned where the tool reads them
 - [x] lessons-3-4: `house-rules`: items 1–18, the sections *Parallel Work* and *Lessons*, red flags and verification
 - [x] lessons-3-5: Fresh-context review of lessons-3-1 to 3-4 against the spec; `clarity` once
-- [x] lessons-3-6: `principles.md` and `lets-a-go`: Flutter for more than two target systems (owner, 2026-11-26)
+- [x] lessons-3-6: `principles.md` and `lets-a-go`: Flutter for more than one target system (owner, 2026-11-26)
 
 ### Checkpoint lessons-3
 - [x] `scripts/check.sh` green

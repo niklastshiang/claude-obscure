@@ -339,9 +339,9 @@ Done 2026-11-26: a fresh-context subagent compared the built text with the spec 
 **Acceptance criteria:**
 - [x] Every finding fixed or answered in the done note
 
-## lessons-3-6: Flutter for more than two target systems
+## lessons-3-6: Flutter for more than one target system
 
-Done 2026-11-26 (owner: "for projects with more than two target systems we take Flutter"): the row *More than one OS* in `principles.md` names Flutter for more than two operating systems and keeps the choice per project for exactly two; `lets-a-go` step 3, decision 2 says so and researches Flutter's state on the day; the closing note of `principles.md` and the spec's *Decided* follow. `check_repo.py` still counts 12 principles.
+Done 2026-11-26 (owner; built at first for "more than two" systems, a misreading the owner corrected the same day: "I meant more than 1 OS"): the row *More than one OS* in `principles.md` names Flutter and makes another framework a deviation with an ADR; `lets-a-go` step 3, decision 2 says so, researches Flutter's state on the day and keeps the list of what to weigh for a deviation; the closing note of `principles.md` and the spec's *Decided* follow. `check_repo.py` still counts 12 principles.
 
 ## Checkpoint lessons-3
 - [x] `scripts/check.sh` green

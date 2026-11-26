@@ -199,7 +199,7 @@ them again: [`skills/lets-a-go/principles.md`](skills/lets-a-go/principles.md).
   one framework each show, Readest and Mornye ([spec](SPEC-lessons-3.md)): rules for work on
   several computers and branches, checks that say why they are red, CI that installs and starts
   what users get, and a lessons file in every project, read before each release; Flutter for
-  programs with more than two target systems (owner)
+  programs with more than one target system (owner)
 
 </details>
 
